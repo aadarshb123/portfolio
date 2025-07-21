@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>3D Portfolio</title>
+  <style>
+    #intro-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(20, 20, 30, 0.92);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      font-size: 1.2rem;
+      padding: 2rem;
+      text-align: center;
+    }
+    #intro-overlay button {
+      margin-top: 2rem;
+      padding: 0.7em 2em;
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      background: #ffb347;
+      color: #222;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    #intro-overlay button:hover {
+      background: #ffd580;
+    }
+  </style>
+  <script type="module" crossorigin src="/assets/index-DepZzCR_.js"></script>
+</head>
+<body style="margin: 0;">
+  <div id="intro-overlay">
+    <h1>Welcome to My 3D Portfolio</h1>
+    <p>Hi, I'm Aadarsh!<br>This interactive 3D room is a creative showcase of my skills, projects, and interests as a CS student.<br>Click around the room to explore my work and learn more about me.</p>
+    <button id="close-intro">Enter Portfolio</button>
+  </div>
+  <script>
+    document.getElementById('close-intro').onclick = function() {
+      document.getElementById('intro-overlay').style.display = 'none';
+    };
+  </script>
+</body>
+</html>
