@@ -33,18 +33,101 @@
     #intro-overlay button:hover {
       background: #ffd580;
     }
+    #resume-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(20,20,30,0.95);
+      z-index: 2000;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    #github-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(20,20,30,0.95);
+      z-index: 2000;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    #projects-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(20,20,30,0.95);
+      z-index: 2000;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    #headphone-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(20,20,30,0.95);
+      z-index: 2000;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
   </style>
 </head>
 <body style="margin: 0;">
   <div id="intro-overlay">
     <h1>Welcome to My 3D Portfolio</h1>
-    <p>Hi, I'm Aadarsh!<br>This interactive 3D room is a creative showcase of my skills, projects, and interests as a CS student.<br>Click around the room to explore my work and learn more about me.</p>
+    <p>Hi, I'm Aadarsh!<br> I'm a CS student at Georgia Tech! This interactive 3D room is a creative showcase of my skills, projects, and interests.<br>Click around the room to explore my work and learn more about me. Built using Blender and Three.js.</p>
     <button id="close-intro">Enter Portfolio</button>
+  </div>
+  <div id="resume-overlay">
+    <button id="close-resume" style="margin-bottom:1rem; padding:0.5em 1.5em; font-size:1rem; border:none; border-radius:6px; background:#ffb347; color:#222; cursor:pointer;">Close</button>
+    <iframe id="resume-pdf" src="resume.pdf#view=FitH&toolbar=0&navpanes=0&scrollbar=0" style="width:80vw; height:80vh; border:none; background:#fff;"></iframe>
+  </div>
+  <div id="github-overlay">
+    <button id="close-github" style="margin-bottom:1rem; padding:0.5em 1.5em; font-size:1rem; border:none; border-radius:6px; background:#ffb347; color:#222; cursor:pointer;">Close</button>
+    <iframe id="github-frame" src="https://github.com/aadarshb123" style="width:80vw; height:80vh; border:none; background:#fff;"></iframe>
+  </div>
+  <div id="projects-overlay">
+    <button id="close-projects" style="margin-bottom:1rem; padding:0.5em 1.5em; font-size:1rem; border:none; border-radius:6px; background:#ffb347; color:#222; cursor:pointer;">Close</button>
+    <div style="width:80vw; height:80vh; background:#fff; border-radius:8px; padding:2rem; overflow-y:auto; color:#333;">
+      <h1 style="color:#ffb347; margin-bottom:2rem;">Projects & Work Experience</h1>
+      <p style="font-size:1.1rem; line-height:1.6;">This is where you can add your projects and work experience content.</p>
+      <p style="font-size:1.1rem; line-height:1.6;">You can customize this section with:</p>
+      <ul style="font-size:1.1rem; line-height:1.6;">
+        <li>Project descriptions</li>
+        <li>Technologies used</li>
+        <li>Work experience details</li>
+        <li>Links to live demos</li>
+        <li>GitHub repositories</li>
+      </ul>
+    </div>
+  </div>
+  <div id="headphone-overlay">
+    <button id="close-headphone" style="margin-bottom:1rem; padding:0.5em 1.5em; font-size:1rem; border:none; border-radius:6px; background:#ffb347; color:#222; cursor:pointer;">Close</button>
+    <div style="width:80vw; height:80vh; background:#fff; border-radius:8px; padding:2rem; overflow-y:auto; color:#333;">
+      <h1 style="color:#ffb347; margin-bottom:2rem;">Music & Audio</h1>
+      <p style="font-size:1.1rem; line-height:1.6; margin-bottom:2rem;">Here's one of my favorite playlists:</p>
+      <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1FoMD2GlYaqPkO?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    </div>
   </div>
   <script type="module" src="./main.js"></script>
   <script>
     document.getElementById('close-intro').onclick = function() {
       document.getElementById('intro-overlay').style.display = 'none';
+    };
+    document.getElementById('close-resume').onclick = function() {
+      document.getElementById('resume-overlay').style.display = 'none';
+    };
+    document.getElementById('close-github').onclick = function() {
+      document.getElementById('github-overlay').style.display = 'none';
+    };
+    document.getElementById('close-projects').onclick = function() {
+      document.getElementById('projects-overlay').style.display = 'none';
+    };
+    document.getElementById('close-headphone').onclick = function() {
+      document.getElementById('headphone-overlay').style.display = 'none';
     };
   </script>
 </body>
