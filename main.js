@@ -8,9 +8,8 @@ import { PMREMGenerator } from 'three';
 // Get the base URL for local assets (images, etc)
 const base = import.meta.env.BASE_URL;
 
-// CDN URL for large assets (GLB, HDR files)
-// Replace 'aadarshb123/3d-portfolio-assets' with your actual repo name
-const CDN_BASE = 'https://cdn.jsdelivr.net/gh/aadarshb123/3d-portfolio-assets@main/';
+// GitHub Releases URL for large assets (GLB, HDR files)
+const RELEASE_BASE = 'https://corsproxy.io/?https://github.com/aadarshb123/aadarsh-battula-3D-portfolio/releases/download/v1.0.0/';
 
 // Scene setup
 const scene = new THREE.Scene();
@@ -30,9 +29,9 @@ renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 const pmremGenerator = new PMREMGenerator(renderer);
 pmremGenerator.compileEquirectangularShader();
 
-// Load HDR from CDN
+// Load HDR from GitHub Releases
 new RGBELoader()
-  .load(`${CDN_BASE}warm_restaurant_night_4k.hdr`, function (texture) {
+  .load(`${RELEASE_BASE}warm_restaurant_night_4k.hdr`, function (texture) {
     const envMap = pmremGenerator.fromEquirectangular(texture).texture;
     scene.environment = envMap;
     texture.dispose();
@@ -247,8 +246,8 @@ dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
 const loader = new GLTFLoader();
 loader.setDRACOLoader(dracoLoader);
 
-// Load the compressed model from CDN
-loader.load(`${CDN_BASE}model-draco.glb`, (gltf) => {
+// Load the compressed model from GitHub Releases
+loader.load(`${RELEASE_BASE}model.glb`, (gltf) => {
   gltf.scene.traverse((child) => {
     console.log(child.name);
     if (child.isMesh) {
@@ -353,7 +352,7 @@ loader.load(`${CDN_BASE}model-draco.glb`, (gltf) => {
   // Fallback to non-compressed version if Draco fails
   console.log('Trying to load non-compressed version...');
   const fallbackLoader = new GLTFLoader();
-  fallbackLoader.load(`${CDN_BASE}model.glb`, (gltf) => {
+  fallbackLoader.load(`${RELEASE_BASE}model.glb`, (gltf) => {
     gltf.scene.traverse((child) => {
       console.log(child.name);
       if (child.isMesh) {
