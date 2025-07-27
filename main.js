@@ -62,6 +62,9 @@ let originalRunningShoesMaterial = null;
 let headphoneMeshes = [];
 let isHoveringHeadphones = false;
 let originalHeadphoneMaterial = null;
+let monkeyMeshes = [];
+let isHoveringMonkey = false;
+let originalMonkeyMaterial = null;
 
 // Function to create a clickable wrapper object
 function createClickableWrapper(name, meshes) {
@@ -221,7 +224,6 @@ function removeTargetedHighlight() {
 
 const loader = new GLTFLoader();
 loader.load('model.glb', (gltf) => {
-  console.log('=== All objects in model ===');
   gltf.scene.traverse((child) => {
     console.log(child.name);
     if (child.isMesh) {
@@ -270,13 +272,11 @@ loader.load('model.glb', (gltf) => {
         headphoneMeshes.push(child);
         if (!originalHeadphoneMaterial) originalHeadphoneMaterial = child.material.clone();
       }
-    }
-  });
-  
-  console.log('=== Computer-related objects found ===');
-  gltf.scene.traverse((child) => {
-    if (child.isMesh && (child.name.includes('computer') || child.name.includes('Computer') || child.name.includes('dian') || child.name.includes('defaultMaterial'))) {
-      console.log('Potential computer object:', child.name);
+      // Add monkey detection
+      if (child.name === 'Stuffed_monkey' || child.name === 'Stuffed_monkey_1' || child.name === 'Stuffed_monkey-01') {
+        monkeyMeshes.push(child);
+        if (!originalMonkeyMaterial) originalMonkeyMaterial = child.material.clone();
+      }
     }
   });
   
@@ -289,41 +289,31 @@ loader.load('model.glb', (gltf) => {
   if (computerMeshes.length > 0) {
     const computerWrapper = createClickableWrapper('computerWrapper', computerMeshes);
     scene.add(computerWrapper);
-    console.log('Computer meshes found:', computerMeshes.length);
-  } else {
-    console.log('No computer meshes found');
   }
-  
+
   if (bookMeshes.length > 0) {
     const bookWrapper = createClickableWrapper('bookWrapper', bookMeshes);
     scene.add(bookWrapper);
-    console.log('Book meshes found:', bookMeshes.length);
-  } else {
-    console.log('No book meshes found');
   }
   
   if (movieNumberMeshes.length > 0) {
     const movieNumberWrapper = createClickableWrapper('movieNumberWrapper', movieNumberMeshes);
     scene.add(movieNumberWrapper);
-    console.log('Movie number meshes found:', movieNumberMeshes.length);
-  } else {
-    console.log('No movie number meshes found');
   }
 
   if (runningShoesMeshes.length > 0) {
     const runningShoesWrapper = createClickableWrapper('runningShoesWrapper', runningShoesMeshes);
     scene.add(runningShoesWrapper);
-    console.log('Running shoes meshes found:', runningShoesMeshes.length);
-  } else {
-    console.log('No running shoes meshes found');
   }
 
   if (headphoneMeshes.length > 0) {
     const headphoneWrapper = createClickableWrapper('headphoneWrapper', headphoneMeshes);
     scene.add(headphoneWrapper);
-    console.log('Headphone meshes found:', headphoneMeshes.length);
-  } else {
-    console.log('No headphone meshes found');
+  }
+
+  if (monkeyMeshes.length > 0) {
+    const monkeyWrapper = createClickableWrapper('monkeyWrapper', monkeyMeshes);
+    scene.add(monkeyWrapper);
   }
   
   scene.add(gltf.scene);
@@ -385,6 +375,13 @@ function onClick(event) {
       return;
     }
   }
+  if (monkeyMeshes.length > 0) {
+    const intersects = raycaster.intersectObjects(monkeyMeshes, true);
+    if (intersects.length > 0) {
+      document.getElementById('intro-overlay').style.display = 'flex';
+      return;
+    }
+  }
 }
 window.addEventListener('click', onClick);
 
@@ -417,6 +414,10 @@ function onMouseMove(event) {
   }
   if (isHoveringHeadphones) {
     isHoveringHeadphones = false;
+    document.body.style.cursor = '';
+  }
+  if (isHoveringMonkey) {
+    isHoveringMonkey = false;
     document.body.style.cursor = '';
   }
   
@@ -478,6 +479,15 @@ function onMouseMove(event) {
       applyTargetedHighlight(headphoneMeshes);
     }
   }
+  if (monkeyMeshes.length > 0) {
+    const intersects = raycaster.intersectObjects(monkeyMeshes, true);
+    if (intersects.length > 0) {
+      hovering = true;
+      isHoveringMonkey = true;
+      document.body.style.cursor = 'pointer';
+      applyTargetedHighlight(monkeyMeshes);
+    }
+  }
   
   if (!hovering) {
     document.body.style.cursor = '';
@@ -485,6 +495,32 @@ function onMouseMove(event) {
   }
 }
 window.addEventListener('mousemove', onMouseMove);
+
+// Utility function to add click-outside-to-close for overlays
+function setupOverlayClickOutside(overlayId, cardClass, closeBtnId) {
+  const overlay = document.getElementById(overlayId);
+  if (!overlay) return;
+  overlay.addEventListener('mousedown', function(event) {
+    // Only close if clicking directly on the overlay background, not the card or its children
+    if (event.target === overlay) {
+      overlay.style.display = 'none';
+    }
+  });
+  // Also allow pressing Escape to close
+  document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape' && overlay.style.display === 'flex') {
+      overlay.style.display = 'none';
+    }
+  });
+}
+
+// Setup click-outside-to-close for all overlays with cards
+window.addEventListener('DOMContentLoaded', function() {
+  setupOverlayClickOutside('projects-overlay', 'projects-card', 'close-projects');
+  setupOverlayClickOutside('resume-overlay', 'projects-card', 'close-resume');
+  setupOverlayClickOutside('github-overlay', 'projects-card', 'close-github');
+  setupOverlayClickOutside('headphone-overlay', 'projects-card', 'close-headphone');
+});
 
 // Resize support
 window.addEventListener('resize', () => {
