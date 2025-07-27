@@ -1,11 +1,12 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
 import { PMREMGenerator } from 'three';
 
-// Use GitHub Release URLs for large files
-const GITHUB_RELEASE_BASE = 'https://github.com/aadarshb123/aadarsh-battula-3D-portfolio/releases/download/v1.0.0/';
+// Get the base URL for assets
+const base = import.meta.env.BASE_URL;
 
 // Scene setup
 const scene = new THREE.Scene();
@@ -25,9 +26,8 @@ renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 const pmremGenerator = new PMREMGenerator(renderer);
 pmremGenerator.compileEquirectangularShader();
 
-// Load HDR from GitHub Release
 new RGBELoader()
-  .load(`${GITHUB_RELEASE_BASE}warm_restaurant_night_4k.hdr`, function (texture) {
+  .load(`${base}warm_restaurant_night_4k.hdr`, function (texture) {
     const envMap = pmremGenerator.fromEquirectangular(texture).texture;
     scene.environment = envMap;
     texture.dispose();
@@ -47,7 +47,7 @@ const directional = new THREE.DirectionalLight(0xffffff, 2);
 directional.position.set(5, 10, 7.5);
 scene.add(directional);
 
-// Load GLB from GitHub Release
+// Load GLB with Draco support
 let greenFolderBookMeshes = [];
 let isHoveringGreenFolder = false;
 let originalGreenFolderMaterial = null;
@@ -226,9 +226,16 @@ function removeTargetedHighlight() {
   removeOutlineEffect();
 }
 
+// Setup Draco loader
+const dracoLoader = new DRACOLoader();
+dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
+
+// Create GLTF loader and attach Draco decoder
 const loader = new GLTFLoader();
-// Load model from GitHub Release
-loader.load(`${GITHUB_RELEASE_BASE}model.glb`, (gltf) => {
+loader.setDRACOLoader(dracoLoader);
+
+// Load the compressed model
+loader.load(`${base}model-draco.glb`, (gltf) => {
   gltf.scene.traverse((child) => {
     console.log(child.name);
     if (child.isMesh) {
@@ -323,13 +330,20 @@ loader.load(`${GITHUB_RELEASE_BASE}model.glb`, (gltf) => {
   
   scene.add(gltf.scene);
 }, 
-// Progress
+// Progress callback
 (xhr) => {
   console.log((xhr.loaded / xhr.total * 100) + '% loaded');
 }, 
-// Error
+// Error callback
 (err) => {
   console.error('Error loading model:', err);
+  // Fallback to non-compressed version if Draco fails
+  console.log('Trying to load non-compressed version...');
+  const fallbackLoader = new GLTFLoader();
+  fallbackLoader.load(`${base}model.glb`, (gltf) => {
+    // Same loading code as above...
+    scene.add(gltf.scene);
+  });
 });
 
 // Raycaster for interactivity
