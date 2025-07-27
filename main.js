@@ -8,6 +8,98 @@ import { PMREMGenerator } from 'three';
 // Get the base URL for assets
 const base = import.meta.env.BASE_URL;
 
+// Manual file checking section
+console.log('=== CHECKING FILE AVAILABILITY ===');
+const filesToCheck = [
+  `${base}model-draco.glb`,
+  `${base}model.glb`,
+  '/model-draco.glb',
+  '/model.glb',
+  'model-draco.glb',
+  'model.glb',
+  `${window.location.origin}${base}model-draco.glb`,
+  `${window.location.origin}${base}model.glb`
+];
+
+filesToCheck.forEach(url => {
+  fetch(url, { method: 'HEAD' })
+    .then(response => {
+      if (response.ok) {
+        console.log(`✓ Found file at: ${url} (Status: ${response.status})`);
+      } else {
+        console.log(`✗ Not found: ${url} (Status: ${response.status})`);
+      }
+    })
+    .catch(() => {
+      console.log(`✗ Error checking: ${url}`);
+    });
+});
+
+// Check if we're on GitHub Pages
+if (window.location.hostname.includes('github.io')) {
+  console.log('Running on GitHub Pages');
+  console.log('Repository name from URL:', window.location.pathname.split('/')[1]);
+}
+
+// Test Draco decoder availability
+console.log('Testing Draco decoder URL...');
+fetch('https://www.gstatic.com/draco/v1/decoders/draco_decoder.js')
+  .then(response => {
+    console.log('Draco decoder JS status:', response.status);
+    if (response.status !== 200) {
+      console.error('❌ Cannot load Draco decoder from Google CDN');
+    } else {
+      console.log('✓ Draco decoder is accessible');
+    }
+  })
+  .catch(err => {
+    console.error('❌ Failed to check Draco decoder:', err);
+  });
+
+// Add debug button to page
+const debugButton = document.createElement('button');
+debugButton.textContent = 'Debug Model Loading';
+debugButton.style.cssText = 'position: fixed; top: 10px; left: 10px; z-index: 9999; padding: 10px; background: #2196f3; color: white; border: none; border-radius: 5px; cursor: pointer;';
+document.body.appendChild(debugButton);
+
+debugButton.onclick = () => {
+  console.clear();
+  console.log('=== MANUAL DEBUG TEST ===');
+  
+  // Test 1: Check current setup
+  console.log('Base URL:', base);
+  console.log('Current location:', window.location.href);
+  
+  // Test 2: Try loading with XMLHttpRequest for more details
+  const xhr = new XMLHttpRequest();
+  xhr.open('GET', `${base}model-draco.glb`, true);
+  xhr.responseType = 'arraybuffer';
+  
+  xhr.onload = () => {
+    console.log('XHR Status:', xhr.status);
+    console.log('XHR Response Length:', xhr.response.byteLength);
+    
+    if (xhr.response.byteLength < 1000) {
+      const text = new TextDecoder().decode(xhr.response);
+      console.log('Response text (first 200 chars):', text.substring(0, 200));
+    }
+  };
+  
+  xhr.onerror = () => {
+    console.error('XHR Error occurred');
+  };
+  
+  xhr.send();
+  
+  // Test 3: List all files that should exist
+  console.log('Expected files in public folder:');
+  console.log('- model.glb (original)');
+  console.log('- model-draco.glb (compressed)');
+  console.log('- warm_restaurant_night_4k.hdr');
+  console.log('- All .jpeg files for logos');
+  console.log('- resume.pdf');
+};
+
 // Scene setup
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
@@ -226,16 +318,63 @@ function removeTargetedHighlight() {
   removeOutlineEffect();
 }
 
-// Setup Draco loader
+// Debug: Log the base URL
+console.log('Base URL:', base);
+console.log('Full model URL:', `${base}model-draco.glb`);
+
+// Setup Draco loader with debugging
+console.log('Setting up Draco loader...');
 const dracoLoader = new DRACOLoader();
 dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
+console.log('Draco decoder path set to:', 'https://www.gstatic.com/draco/v1/decoders/');
+
+// Test if Draco decoder can be loaded
+dracoLoader.preload();
+console.log('Draco preload initiated');
 
 // Create GLTF loader and attach Draco decoder
 const loader = new GLTFLoader();
 loader.setDRACOLoader(dracoLoader);
+console.log('Draco loader attached to GLTF loader');
 
-// Load the compressed model
-loader.load(`${base}model-draco.glb`, (gltf) => {
+// First, let's check if the file exists
+console.log('Checking if model file exists...');
+fetch(`${base}model-draco.glb`)
+  .then(response => {
+    console.log('Fetch response:', {
+      status: response.status,
+      statusText: response.statusText,
+      headers: [...response.headers.entries()],
+      url: response.url
+    });
+    return response.arrayBuffer();
+  })
+  .then(data => {
+    console.log('File size:', data.byteLength, 'bytes');
+    console.log('First 100 bytes:', new Uint8Array(data.slice(0, 100)));
+    
+    // Check if it's a GLB file (should start with 'glTF')
+    const header = new TextDecoder().decode(data.slice(0, 4));
+    console.log('File header:', header);
+    
+    if (header === 'glTF') {
+      console.log('✓ Valid GLB file detected');
+    } else if (data.byteLength < 1000 && new TextDecoder().decode(data).includes('version https://git-lfs')) {
+      console.error('❌ Git LFS pointer file detected! The actual file is not being served.');
+    } else {
+      console.warn('⚠ Unknown file format');
+    }
+  })
+  .catch(err => {
+    console.error('Error fetching model file:', err);
+  });
+
+// Load the compressed model with detailed logging
+console.log('Starting GLTF load...');
+loader.load(`${base}model-draco.glb`, 
+  // Success callback
+  (gltf) => {
+    console.log('✓ GLTF loaded successfully!', gltf);
   gltf.scene.traverse((child) => {
     console.log(child.name);
     if (child.isMesh) {
@@ -330,20 +469,73 @@ loader.load(`${base}model-draco.glb`, (gltf) => {
   
   scene.add(gltf.scene);
 }, 
-// Progress callback
+// Progress callback with debugging
 (xhr) => {
-  console.log((xhr.loaded / xhr.total * 100) + '% loaded');
-}, 
-// Error callback
-(err) => {
-  console.error('Error loading model:', err);
-  // Fallback to non-compressed version if Draco fails
-  console.log('Trying to load non-compressed version...');
-  const fallbackLoader = new GLTFLoader();
-  fallbackLoader.load(`${base}model.glb`, (gltf) => {
-    // Same loading code as above...
-    scene.add(gltf.scene);
+  const percentComplete = (xhr.loaded / xhr.total * 100);
+  console.log('Loading progress:', {
+    loaded: xhr.loaded,
+    total: xhr.total,
+    percent: percentComplete.toFixed(2) + '%'
   });
+  
+  // Check if xhr.total is 0 or undefined
+  if (!xhr.total || xhr.total === 0) {
+    console.warn('⚠ Total file size is unknown - server might not be sending Content-Length header');
+  }
+}, 
+// Error callback with detailed debugging
+(error) => {
+  console.error('❌ Error loading model:', error);
+  console.error('Error type:', error.constructor.name);
+  console.error('Error message:', error.message);
+  console.error('Error stack:', error.stack);
+  
+  // Try to get more details about the error
+  if (error.target) {
+    console.error('Error target:', error.target);
+  }
+  
+  // Check if it's a Draco-specific error
+  if (error.message && error.message.includes('draco')) {
+    console.error('This appears to be a Draco decoder error');
+    console.log('Attempting to load non-Draco version...');
+  }
+  
+  // Fallback to non-compressed version
+  console.log('Attempting fallback to non-compressed model...');
+  const fallbackLoader = new GLTFLoader();
+  
+  // Don't use Draco for fallback
+  console.log('Loading original model from:', `${base}model.glb`);
+  
+  fallbackLoader.load(`${base}model.glb`, 
+    (gltf) => {
+      console.log('✓ Fallback model loaded successfully!');
+      gltf.scene.traverse((child) => {
+        console.log('Found object:', child.name, child.type);
+        if (child.isMesh) {
+          child.castShadow = true;
+          child.receiveShadow = true;
+          // ... rest of your mesh detection code
+        }
+      });
+      scene.add(gltf.scene);
+    },
+    (xhr) => {
+      console.log('Fallback loading progress:', (xhr.loaded / xhr.total * 100).toFixed(2) + '%');
+    },
+    (fallbackError) => {
+      console.error('❌ Fallback also failed:', fallbackError);
+      console.error('Neither Draco nor original model could be loaded');
+      
+      // Final debugging attempt
+      console.log('Debugging file paths:');
+      console.log('- Base URL:', base);
+      console.log('- Draco model path:', `${base}model-draco.glb`);
+      console.log('- Original model path:', `${base}model.glb`);
+      console.log('- Window location:', window.location.href);
+    }
+  );
 });
 
 // Raycaster for interactivity
