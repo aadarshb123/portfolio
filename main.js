@@ -226,7 +226,9 @@ function removeTargetedHighlight() {
 }
 
 const loader = new GLTFLoader();
-loader.load(`${base}model.glb`, (gltf) => {
+// Use GitHub Releases URL for large GLB file
+const modelUrl = 'https://github.com/aadarshb123/aadarsh-battula-3D-portfolio/releases/download/v1.0.0/model.glb';
+loader.load(modelUrl, (gltf) => {
   gltf.scene.traverse((child) => {
     console.log(child.name);
     if (child.isMesh) {
@@ -322,6 +324,22 @@ loader.load(`${base}model.glb`, (gltf) => {
   scene.add(gltf.scene);
 }, undefined, (err) => {
   console.error('Error loading model:', err);
+  console.error('Full error details:', err);
+  
+  // Try to fetch the file to see what's being returned
+  fetch(`${base}model.glb`)
+    .then(response => {
+      console.log('Fetch response status:', response.status);
+      console.log('Fetch response headers:', response.headers);
+      return response.text();
+    })
+    .then(text => {
+      console.log('First 200 characters of response:', text.substring(0, 200));
+      if (text.includes('version https://git-lfs.github.com')) {
+        console.error('ERROR: GitHub Pages is serving the Git LFS pointer file, not the actual GLB file!');
+        console.error('You need to host the GLB file elsewhere or use a different hosting solution.');
+      }
+    });
 });
 
 // Raycaster for interactivity
