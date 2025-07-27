@@ -230,23 +230,33 @@
     /* Timeline Styles */
     .timeline-container {
       position: relative;
-      padding: 2rem 0;
+      padding: 1rem 0 1rem 0;
       margin-left: 2rem;
-    }
-    .timeline-container::before {
-      content: '';
-      position: absolute;
-      left: 40px;
-      top: 0;
-      bottom: 0;
-      width: 3px;
-      background: linear-gradient(180deg, #2196f3 0%, #43e97b 100%);
-      border-radius: 2px;
     }
     .timeline-item {
       position: relative;
       padding-left: 80px;
       margin-bottom: 3rem;
+    }
+    .timeline-item:last-child {
+      margin-bottom: 0;
+    }
+    /* Timeline line between markers */
+    .timeline-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 40px;
+      top: 22px; /* Start below the marker */
+      bottom: -3rem; /* Extend to next marker */
+      width: 3px;
+      background: linear-gradient(180deg, #2196f3 0%, #43e97b 100%);
+      border-radius: 2px;
+    }
+    .timeline-item:first-child .timeline-marker {
+      box-shadow: 0 0 15px rgba(33, 150, 243, 0.3);
+    }
+    .timeline-item:last-child .timeline-marker {
+      box-shadow: 0 0 15px rgba(67, 233, 123, 0.3);
     }
     .timeline-marker {
       position: absolute;
