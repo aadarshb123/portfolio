@@ -4,6 +4,9 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
 import { PMREMGenerator } from 'three';
 
+// Get the base URL for assets
+const base = import.meta.env.BASE_URL;
+
 // Scene setup
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
@@ -23,7 +26,7 @@ const pmremGenerator = new PMREMGenerator(renderer);
 pmremGenerator.compileEquirectangularShader();
 
 new RGBELoader()
-  .load('warm_restaurant_night_4k.hdr', function (texture) {
+  .load(`${base}warm_restaurant_night_4k.hdr`, function (texture) {
     const envMap = pmremGenerator.fromEquirectangular(texture).texture;
     scene.environment = envMap;
     texture.dispose();
@@ -223,7 +226,7 @@ function removeTargetedHighlight() {
 }
 
 const loader = new GLTFLoader();
-loader.load('model.glb', (gltf) => {
+loader.load(`${base}model.glb`, (gltf) => {
   gltf.scene.traverse((child) => {
     console.log(child.name);
     if (child.isMesh) {
