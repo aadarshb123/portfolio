@@ -5,8 +5,12 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
 import { PMREMGenerator } from 'three';
 
-// Get the base URL for assets
+// Get the base URL for local assets (images, etc)
 const base = import.meta.env.BASE_URL;
+
+// CDN URL for large assets (GLB, HDR files)
+// Replace 'aadarshb123/3d-portfolio-assets' with your actual repo name
+const CDN_BASE = 'https://cdn.jsdelivr.net/gh/aadarshb123/3d-portfolio-assets@main/';
 
 // Scene setup
 const scene = new THREE.Scene();
@@ -26,12 +30,21 @@ renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 const pmremGenerator = new PMREMGenerator(renderer);
 pmremGenerator.compileEquirectangularShader();
 
+// Load HDR from CDN
 new RGBELoader()
-  .load(`${base}warm_restaurant_night_4k.hdr`, function (texture) {
+  .load(`${CDN_BASE}warm_restaurant_night_4k.hdr`, function (texture) {
     const envMap = pmremGenerator.fromEquirectangular(texture).texture;
     scene.environment = envMap;
     texture.dispose();
     pmremGenerator.dispose();
+  }, 
+  // Progress callback
+  (xhr) => {
+    console.log('HDR ' + (xhr.loaded / xhr.total * 100) + '% loaded');
+  },
+  // Error callback
+  (error) => {
+    console.error('Error loading HDR:', error);
   });
 
 // Orbit controls
@@ -234,8 +247,8 @@ dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
 const loader = new GLTFLoader();
 loader.setDRACOLoader(dracoLoader);
 
-// Load the compressed model
-loader.load(`${base}model-draco.glb`, (gltf) => {
+// Load the compressed model from CDN
+loader.load(`${CDN_BASE}model-draco.glb`, (gltf) => {
   gltf.scene.traverse((child) => {
     console.log(child.name);
     if (child.isMesh) {
@@ -332,7 +345,7 @@ loader.load(`${base}model-draco.glb`, (gltf) => {
 }, 
 // Progress callback
 (xhr) => {
-  console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+  console.log('GLB ' + (xhr.loaded / xhr.total * 100) + '% loaded');
 }, 
 // Error callback
 (err) => {
@@ -340,8 +353,99 @@ loader.load(`${base}model-draco.glb`, (gltf) => {
   // Fallback to non-compressed version if Draco fails
   console.log('Trying to load non-compressed version...');
   const fallbackLoader = new GLTFLoader();
-  fallbackLoader.load(`${base}model.glb`, (gltf) => {
-    // Same loading code as above...
+  fallbackLoader.load(`${CDN_BASE}model.glb`, (gltf) => {
+    gltf.scene.traverse((child) => {
+      console.log(child.name);
+      if (child.isMesh) {
+        child.castShadow = true;
+        child.receiveShadow = true;
+        if (child.name === 'grh') {
+          greenFolderBookMeshes.push(child);
+        }
+        if (child.name === 'defaultMaterial005_1'
+          || child.name === 'defaultMaterial005') {
+          computerMeshes.push(child);
+          if (!originalComputerMaterial) originalComputerMaterial = child.material.clone();
+        }
+        // Add book detection
+        if (child.name === 'Cube066' 
+          || child.name === 'Cube068'
+          || child.name === 'Cube069'
+          || child.name === 'Cube070'
+          || child.name === 'Cube071'
+          || child.name === 'Cube072'
+          || child.name === 'Cube073'
+          || child.name === 'Cube074') {
+          bookMeshes.push(child);
+          if (!originalBookMaterial) originalBookMaterial = child.material.clone();
+        }
+        // Add movie number detection
+        if (child.name === 'Movie_numberator') {
+          movieNumberMeshes.push(child);
+          if (!originalMovieNumberMaterial) originalMovieNumberMaterial = child.material.clone();
+        }
+        // Add running shoes detection
+        if (child.name === 'Red_sport_running_shoes' || child.name === 'L' || child.name === 'R') {
+          runningShoesMeshes.push(child);
+          if (!originalRunningShoesMaterial) originalRunningShoesMaterial = child.material.clone();
+        }
+        // Add headphone detection
+        if (child.name === 'JBL_Bluetooth_Headphones' 
+          || child.name === 'band'
+          || child.name === 'earpiece'
+          || child.name === 'earpiece001'
+          || child.name === 'earpiece006'
+          || child.name === 'head_band'
+          || child.name === 'headband'
+          || child.name === 'logo'
+          || child.name === 'logo2') {
+          headphoneMeshes.push(child);
+          if (!originalHeadphoneMaterial) originalHeadphoneMaterial = child.material.clone();
+        }
+        // Add monkey detection
+        if (child.name === 'Stuffed_monkey' || child.name === 'Stuffed_monkey_1' || child.name === 'Stuffed_monkey-01') {
+          monkeyMeshes.push(child);
+          if (!originalMonkeyMaterial) originalMonkeyMaterial = child.material.clone();
+        }
+      }
+    });
+    
+    // Create clickable wrappers
+    if (greenFolderBookMeshes.length > 0) {
+      const greenFolderWrapper = createClickableWrapper('greenFolderWrapper', greenFolderBookMeshes);
+      scene.add(greenFolderWrapper);
+    }
+    
+    if (computerMeshes.length > 0) {
+      const computerWrapper = createClickableWrapper('computerWrapper', computerMeshes);
+      scene.add(computerWrapper);
+    }
+
+    if (bookMeshes.length > 0) {
+      const bookWrapper = createClickableWrapper('bookWrapper', bookMeshes);
+      scene.add(bookWrapper);
+    }
+    
+    if (movieNumberMeshes.length > 0) {
+      const movieNumberWrapper = createClickableWrapper('movieNumberWrapper', movieNumberMeshes);
+      scene.add(movieNumberWrapper);
+    }
+
+    if (runningShoesMeshes.length > 0) {
+      const runningShoesWrapper = createClickableWrapper('runningShoesWrapper', runningShoesMeshes);
+      scene.add(runningShoesWrapper);
+    }
+
+    if (headphoneMeshes.length > 0) {
+      const headphoneWrapper = createClickableWrapper('headphoneWrapper', headphoneMeshes);
+      scene.add(headphoneWrapper);
+    }
+
+    if (monkeyMeshes.length > 0) {
+      const monkeyWrapper = createClickableWrapper('monkeyWrapper', monkeyMeshes);
+      scene.add(monkeyWrapper);
+    }
+    
     scene.add(gltf.scene);
   });
 });
