@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>3D Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aadarsh Battula - 3D Portfolio</title>
   <style>
     #intro-overlay {
       position: fixed;
@@ -18,20 +19,6 @@
       font-size: 1.2rem;
       padding: 0;
       text-align: center;
-    }
-    #intro-overlay button {
-      margin-top: 2rem;
-      padding: 0.7em 2em;
-      font-size: 1rem;
-      border: none;
-      border-radius: 6px;
-      background: #ffb347;
-      color: #222;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    #intro-overlay button:hover {
-      background: #ffd580;
     }
     #resume-overlay,
     #projects-overlay,
@@ -50,43 +37,54 @@
       width: 70vw;
       max-width: 800px;
       min-height: 60vh;
-      background: #f8fafc;
-      border-radius: 18px;
-      box-shadow: 0 8px 32px 0 rgba(33,150,243,0.18), 0 1.5px 8px 0 rgba(67,233,123,0.10);
-      padding: 2.5rem 2.5rem 2rem 2.5rem;
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.25);
+      padding: 3rem 3rem 2.5rem 3rem;
       display: flex;
       flex-direction: column;
       color: #1a2a3a;
       position: relative;
       overflow-y: auto;
-      animation: fadeInCard 0.5s cubic-bezier(.4,2,.6,1) 1;
+      animation: fadeInCard 0.5s cubic-bezier(.4,0,.2,1) 1;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
     }
     @keyframes fadeInCard {
-      from { opacity: 0; transform: translateY(40px) scale(0.98); }
-      to { opacity: 1; transform: none; }
+      from { 
+        opacity: 0; 
+        transform: translateY(30px) scale(0.95); 
+      }
+      to { 
+        opacity: 1; 
+        transform: translateY(0) scale(1); 
+      }
     }
     .projects-close-btn {
       position: absolute;
       top: 1.2rem;
       right: 1.2rem;
-      background: linear-gradient(135deg, #2196f3 60%, #43e97b 100%);
-      color: #fff;
-      border: none;
+      background: #f1f5f9;
+      color: #64748b;
+      border: 2px solid #e2e8f0;
       border-radius: 50%;
       width: 2.5rem;
       height: 2.5rem;
       font-size: 1.3rem;
       cursor: pointer;
-      box-shadow: 0 2px 8px rgba(33,150,243,0.12);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: background 0.2s, transform 0.15s;
+      transition: all 0.2s ease;
       z-index: 10;
     }
     .projects-close-btn:hover {
-      background: linear-gradient(135deg, #43e97b 60%, #2196f3 100%);
-      transform: scale(1.08) rotate(8deg);
+      background: #fff;
+      color: #2196f3;
+      border-color: #2196f3;
+      transform: scale(1.08) rotate(90deg);
+      box-shadow: 0 4px 12px rgba(33,150,243,0.2);
     }
     .projects-header {
       font-size: 2.2rem;
@@ -115,42 +113,535 @@
       margin-bottom: 0.5rem;
       padding-left: 0.2rem;
     }
+    .contact-section {
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #e2e8f0;
+    }
+    .contact-links {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #2196f3;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      background: rgba(33, 150, 243, 0.08);
+      max-width: 100%;
+      overflow: hidden;
+    }
+    .contact-link:hover {
+      color: #fff;
+      background: linear-gradient(135deg, #2196f3 0%, #43e97b 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(33,150,243,0.25);
+    }
+    .contact-link svg {
+      transition: transform 0.3s ease;
+    }
+    .contact-link:hover svg {
+      transform: scale(1.1);
+    }
+    .enter-btn {
+      margin: 2rem auto 0 auto;
+      border-radius: 12px;
+      width: auto;
+      height: auto;
+      font-size: 1.1rem;
+      padding: 0.8em 2.5em;
+      background: linear-gradient(135deg, #2196f3 0%, #43e97b 100%);
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(33,150,243,0.25);
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      transition: all 0.3s ease;
+      position: static;
+    }
+    .enter-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(33,150,243,0.35);
+    }
+    .tech-stack {
+      margin-top: 2.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(33, 150, 243, 0.15);
+      font-size: 0.9rem;
+      color: #64748b;
+      text-align: center;
+    }
+    .tech-stack span {
+      color: #2196f3;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+    .tech-stack:hover span {
+      color: #43e97b;
+    }
+    
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .projects-card {
+        width: 90vw;
+        padding: 2rem 1.5rem;
+      }
+      .projects-header {
+        font-size: 1.8rem;
+      }
+      .contact-links {
+        flex-direction: column;
+        gap: 0.8rem;
+      }
+      .contact-link {
+        width: 100%;
+        justify-content: center;
+        font-size: 0.9rem;
+      }
+    }
+    .spotify-follow-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #fff;
+      background: #1DB954;
+      text-decoration: none;
+      font-size: 1rem;
+      padding: 0.7rem 1.5rem;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      font-weight: 600;
+    }
+    .spotify-follow-btn:hover {
+      background: #1ed760;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(29, 185, 84, 0.3);
+    }
+    
+    /* Timeline Styles */
+    .timeline-container {
+      position: relative;
+      padding: 2rem 0;
+      margin-left: 2rem;
+    }
+    .timeline-container::before {
+      content: '';
+      position: absolute;
+      left: 40px;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(180deg, #2196f3 0%, #43e97b 100%);
+      border-radius: 2px;
+    }
+    .timeline-item {
+      position: relative;
+      padding-left: 80px;
+      margin-bottom: 3rem;
+    }
+    .timeline-marker {
+      position: absolute;
+      left: 30px;
+      top: 0;
+      width: 22px;
+      height: 22px;
+      background: #fff;
+      border: 4px solid #2196f3;
+      border-radius: 50%;
+      z-index: 1;
+      transition: all 0.3s ease;
+    }
+    .timeline-item:hover .timeline-marker {
+      background: #2196f3;
+      transform: scale(1.2);
+      box-shadow: 0 0 20px rgba(33, 150, 243, 0.5);
+    }
+    .timeline-content {
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      display: flex;
+      gap: 1.5rem;
+      transition: all 0.3s ease;
+    }
+    .timeline-content:hover {
+      transform: translateX(5px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    }
+    .experience-image {
+      flex-shrink: 0;
+      width: 80px;
+      height: 80px;
+      background: #fff;
+      border-radius: 12px;
+      padding: 0.5rem;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .experience-image img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+    .experience-details {
+      flex: 1;
+    }
+    .experience-details h3 {
+      margin: 0 0 0.3rem 0;
+      color: #1a2a3a;
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+    .experience-details h4 {
+      margin: 0 0 0.5rem 0;
+      color: #2196f3;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+    .experience-details .date {
+      color: #64748b;
+      font-size: 0.95rem;
+      margin: 0 0 1rem 0;
+      font-weight: 500;
+    }
+    .experience-details ul {
+      margin: 0;
+      padding-left: 1.2rem;
+      color: #4a5568;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    .experience-details li {
+      margin-bottom: 0.5rem;
+    }
+    
+    /* Projects Grid */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .project-card {
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+      border-color: #2196f3;
+    }
+    .project-card h3 {
+      margin: 0 0 0.5rem 0;
+      color: #1a2a3a;
+      font-size: 1.2rem;
+    }
+    .project-tech {
+      color: #2196f3;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin: 0 0 1rem 0;
+    }
+    .project-card p {
+      color: #4a5568;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin: 0 0 1rem 0;
+    }
+    .project-date {
+      color: #64748b;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin: 0;
+    }
+    
+    /* Scrollbar styling for the overlay */
+    .projects-card::-webkit-scrollbar {
+      width: 8px;
+    }
+    .projects-card::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+    .projects-card::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, #2196f3 0%, #43e97b 100%);
+      border-radius: 10px;
+    }
+    .projects-card::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(180deg, #1976d2 0%, #2fb966 100%);
+    }
+    
+    /* Responsive timeline */
+    @media (max-width: 768px) {
+      .timeline-container {
+        margin-left: 0;
+      }
+      .timeline-content {
+        flex-direction: column;
+      }
+      .experience-image {
+        width: 60px;
+        height: 60px;
+      }
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body style="margin: 0;">
   <div id="intro-overlay">
     <div class="projects-card">
       <button id="close-intro" class="projects-close-btn" title="Close">&times;</button>
-      <h1 class="projects-header">Welcome to My 3D Portfolio</h1>
-      <div class="projects-content">Hi, I'm Aadarsh!<br>I'm a CS student at Georgia Tech! This interactive 3D room is a creative showcase of my skills, projects, and interests.<br>Click around the room to explore my work and learn more about me. Built using Blender and Three.js.</div>
-      <button id="enter-portfolio" class="projects-close-btn" style="position:static; margin:2rem auto 0 auto; border-radius:8px; width:auto; height:auto; font-size:1.1rem; padding:0.7em 2.2em; background:linear-gradient(135deg,#2196f3 60%,#43e97b 100%); color:#fff; box-shadow:0 2px 8px rgba(33,150,243,0.12);">Enter Portfolio</button>
+      <h1 class="projects-header">Hey, I'm Aadarsh Battula!</h1>
+      <div class="projects-content">
+        Welcome to my portfolio website! I'm a software engineer skilled in full-stack development and artificial intelligence. I am currently pursuing my Bachelor's in Computer Science at Georgia Tech, and have been fortunate to work with amazing teams at Cisco Meraki, the Georgia Tech Research Institute, and as a Senior Teaching Assistant at Georgia Tech. Take a look around this interactive 3D room to see some of my previous work!
+      </div>
+      
+      <div class="contact-section">
+        <h2 style="font-size: 1.5rem; margin-bottom: 1rem; color: #1a2a3a;">Contact Me</h2>
+        <div class="contact-links">
+          <a href="mailto:aadarshb123@gmail.com?subject=Hello%20from%20your%20Portfolio!" class="contact-link" title="Send me an email">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+            </svg>
+            <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">aadarshb123@gmail.com</span>
+          </a>
+          <a href="https://leetcode.com/u/aadarshb123/" target="_blank" class="contact-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/>
+            </svg>
+            LeetCode
+          </a>
+          <a href="https://linkedin.com/in/aadarsh-bat/" target="_blank" class="contact-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+            </svg>
+            LinkedIn
+          </a>
+          <a href="https://github.com/aadarshb123" target="_blank" class="contact-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+      
+      <button id="enter-portfolio" class="enter-btn">Enter Portfolio</button>
+      
+      <div class="tech-stack">
+        Built with <span>Blender</span> and <span>Three.js</span>
+      </div>
     </div>
   </div>
   <div id="resume-overlay">
-    <button id="close-resume" class="projects-close-btn" title="Close">&times;</button>
-    <iframe id="resume-pdf" src="resume.pdf#view=FitH&toolbar=0&navpanes=0&scrollbar=0" style="width:80vw; height:80vh; border:none; background:#fff;"></iframe>
+    <button id="close-resume" class="projects-close-btn" title="Close" style="position:fixed; top:2rem; right:2rem;">&times;</button>
+    <iframe id="resume-pdf" src="resume.pdf#view=FitH&toolbar=0&navpanes=0&scrollbar=0" style="width:80vw; height:80vh; border:none; background:#fff; border-radius:12px; box-shadow:0 20px 50px -12px rgba(0, 0, 0, 0.25);"></iframe>
   </div>
   <div id="projects-overlay">
-    <div class="projects-card">
+    <div class="projects-card" style="max-width: 900px; max-height: 85vh; overflow-y: auto;">
       <button id="close-projects" class="projects-close-btn" title="Close">&times;</button>
-      <h1 class="projects-header">Projects & Work Experience</h1>
-      <div class="projects-content">This is where you can add your projects and work experience content.</div>
-      <div class="projects-content">You can customize this section with:</div>
-      <ul class="projects-list">
-        <li>Project descriptions</li>
-        <li>Technologies used</li>
-        <li>Work experience details</li>
-        <li>Links to live demos</li>
-        <li>GitHub repositories</li>
-      </ul>
+      <h1 class="projects-header">Work Experience</h1>
+      
+      <div class="timeline-container">
+        <!-- Experience 1: Cisco Meraki -->
+        <div class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <div class="experience-image">
+              <!-- Add Cisco Meraki logo as cisco-meraki-logo.png -->
+              <img src="cisco-meraki-logo.jpeg" alt="Cisco Meraki" />
+            </div>
+            <div class="experience-details">
+              <h3>Full Stack Software Engineer Intern</h3>
+              <h4>Cisco Meraki • San Francisco, CA</h4>
+              <p class="date">May 2025 - August 2025</p>
+              <ul>
+                <li>Integrating client topology data into the Cisco Networking AI Assistant using Python and TypeScript for 800,000+ users.</li>
+                <li>Built LangChain AI tools utilizing internal REST APIs allowing generation of contextual responses for client topology questions.</li>
+                <li>Built custom UI components the AI Assistant can use to format responses regarding client topology in a dynamic manner.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Experience 2: Teaching Assistant -->
+        <div class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <div class="experience-image">
+              <img src="georgia-tech-logo.jpeg" alt="Georgia Tech" />
+            </div>
+            <div class="experience-details">
+              <h3>Senior Teaching Assistant</h3>
+              <h4>Georgia Tech College of Computing • Atlanta, GA</h4>
+              <p class="date">August 2024 - April 2025</p>
+              <ul>
+                <li>Teaching 300+ students and working with 10+ TAs for CS 1331: Object-Oriented Programming w/ Java under Dr. Omojokun.</li>
+                <li>Leading weekly recitations and office hours on OOP Principles, Data Structures, Recursion, GUIs, Interfaces, etc.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Experience 3: WebDev Club -->
+        <div class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <div class="experience-image">
+              <img src="gt-webdev-logo.jpeg" alt="GT WebDev" />
+            </div>
+            <div class="experience-details">
+              <h3>Engineering Manager</h3>
+              <h4>GT WebDev Club • Atlanta, GA</h4>
+              <p class="date">January 2024 - Present</p>
+              <ul>
+                <li>Directed full-stack web projects with 10 developers each semester, promoting agile software development practices.</li>
+                <li>Built a Lost & Found System for GT Students (Spring 2025) and a dorm roommate matching system (Fall 2024).</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Experience 4: WebDev Club -->
+        <div class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <div class="experience-image">
+              <img src="study-abroad.jpeg" alt="study abroad" />
+            </div>
+            <div class="experience-details">
+              <h3>Student</h3>
+              <h4>Study Abroad • Barcelona, Spain</h4>
+              <p class="date">May 2025 - August 2025</p>
+              <ul>
+                <li>Took classes Robotics: AI Perception, Database Systems, Architecture in Barcelona, and Computing Ethics.</li>
+                <li>Explored 7 different countries, scuba-dived 🤿, surfed 🏄, and ran with the bulls🐂.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Experience 5: GTRI -->
+        <div class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <div class="experience-image">
+              <img src="gtri-logo.jpeg" alt="GTRI" />
+            </div>
+            <div class="experience-details">
+              <h3>Full Stack Software Engineer Intern</h3>
+              <h4>Georgia Tech Research Institute • Atlanta, GA</h4>
+              <p class="date">January 2024 - May 2024</p>
+              <ul>
+                <li>Developed secure file-sharing web application for the military under a multi-million dollar DoD contract for over 10,000 users.</li>
+                <li>Utilized HTML, CSS, Angular (TypeScript) to create engaging frontend components enhancing user experience.</li>
+                <li>Implemented backend functionalities using Java for data processing and retrieval from OracleSQL database.</li>
+                <li>Added 25+ Java and TypeScript unit tests, spearheaded AngularJS-to-Angular 6 migration, implemented sorting feature for
+                  audited messages.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Experience 6: Placeholder for additional experience -->
+        <div class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <div class="experience-image">
+              <img src="vip.jpeg" alt="VIP" />
+            </div>
+            <div class="experience-details">
+              <h3>Undergraduate Research Assistant</h3>
+              <h4>Automated Algorithm Design VIP • Atlanta, Georgia</h4>
+              <p class="date"></p>
+              <ul>
+                <li>Working on a 6-person team to use Multiple-Objective Genetic Programming techniques to build AutoML models,
+                  detecting the occurrence of 14 pulmonary pathologies based 100,000 images in the ChestX-ray14 dataset.</li>
+                <li>Achieved an 80% accuracy when predicting who survived the titanic using K-Nearest Neighbors Algorithm.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h1 class="projects-header" style="margin-top: 3rem;">Featured Projects</h1>
+      
+      <div class="projects-grid">
+        <div class="project-card">
+          <h3>GT Lost & Found Application</h3>
+          <p class="project-tech">MongoDB, Express.js, React, Node.js</p>
+          <p>Project allowing students to report lost and found items using pin on a map. Built with full MERN stack integration for real-time updates and location-based search functionality.</p>
+          <p class="project-date">WebDev @ GT • Jan 2025 - May 2025</p>
+        </div>
+
+        <div class="project-card">
+          <h3>Profound.ai</h3>
+          <p class="project-tech">React, Flask, MongoDB, LangChain, OpenAI API</p>
+          <p>RAG-powered lecturer agent that presents lecture slides and provides real-time Q&A. Extracted text from course files using Canvas API and stored documents as vector embeddings.</p>
+          <p class="project-date">HackGT Winner • September 2024</p>
+        </div>
+
+        <div class="project-card">
+          <h3>Dorm Roommate Matching System</h3>
+          <p class="project-tech">MERN Stack, Flask</p>
+          <p>Developed a comprehensive roommate matching platform for Georgia Tech students. Implemented compatibility algorithms and preference-based matching for optimal dorm assignments.</p>
+          <p class="project-date">WebDev @ GT • Aug 2024 - Dec 2024</p>
+        </div>
+
+        <div class="project-card">
+          <h3>Predicting Virality of YouTube Videos</h3>
+          <p class="project-tech">Python, Scikit-Learn, TensorFlow</p>
+          <p>Analyzed YouTube video features (titles, descriptions, thumbnails) and their impact on engagement metrics using machine learning techniques including NLP preprocessing, KNN, CNN, and SVM.</p>
+          <p class="project-date">Georgia Tech • Sep 2024 - Dec 2024</p>
+        </div>
+        
+        <div class="project-card">
+          <h3>GT StudyHive</h3>
+          <p class="project-tech">MongoDB, Express.js, React, Node.js</p>
+          <p>MERN application enabling Georgia Tech students to start or join existing study sessions on campus. Integrated Google Maps API and implemented user authentication.</p>
+          <p class="project-date">WebDev Club • Spring 2024</p>
+        </div>
+        
+        <div class="project-card">
+          <h3>2D Dungeon Crawler Game</h3>
+          <p class="project-tech">Java, Android Studio, MVVM Architecture</p>
+          <p>Developed a Dungeon Crawler Android application using MVVM software architecture in an agile environment. Designed UML diagrams to organize game objects.</p>
+          <p class="project-date">CS 2340 • Fall 2023</p>
+        </div>
+      </div>
     </div>
   </div>
   <div id="headphone-overlay">
-    <button id="close-headphone" class="projects-close-btn" title="Close">&times;</button>
     <div class="projects-card">
+      <button id="close-headphone" class="projects-close-btn" title="Close">&times;</button>
       <h1 class="projects-header">Music & Audio</h1>
-      <div class="projects-content" style="margin-bottom:2rem;">Here's one of my favorite playlists:</div>
-      <iframe data-testid="embed-iframe" style="border-radius:12px; width:100%; min-height:352px; background:#f8fafc;" src="https://open.spotify.com/embed/playlist/37i9dQZF1FoMD2GlYaqPkO?utm_source=generator" frameBorder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      <iframe data-testid="embed-iframe" style="border-radius:12px; width:100%; min-height:352px; background:#ffffff;" src="https://open.spotify.com/embed/playlist/37i9dQZF1FoMD2GlYaqPkO?utm_source=generator" frameBorder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      <div style="text-align: center; margin-top: 2rem;">
+        <a href="https://open.spotify.com/user/svhek3bncwzshhnddei4abwa9?si=945df6c9a34148b1" target="_blank" class="spotify-follow-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+          </svg>
+          Follow me on Spotify
+        </a>
+      </div>
     </div>
   </div>
   <script type="module" src="./main.js"></script>
