@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
 import { PMREMGenerator } from 'three';
@@ -46,7 +47,7 @@ const directional = new THREE.DirectionalLight(0xffffff, 2);
 directional.position.set(5, 10, 7.5);
 scene.add(directional);
 
-// Load GLB
+// Load GLB with Draco support
 let greenFolderBookMeshes = [];
 let isHoveringGreenFolder = false;
 let originalGreenFolderMaterial = null;
@@ -225,10 +226,16 @@ function removeTargetedHighlight() {
   removeOutlineEffect();
 }
 
+// Setup Draco loader
+const dracoLoader = new DRACOLoader();
+dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
+
+// Create GLTF loader and attach Draco decoder
 const loader = new GLTFLoader();
-// Use GitHub Releases URL for large GLB file
-const modelUrl = 'https://github.com/aadarshb123/aadarsh-battula-3D-portfolio/releases/download/v1.0.0/model.glb';
-loader.load(modelUrl, (gltf) => {
+loader.setDRACOLoader(dracoLoader);
+
+// Load the compressed model
+loader.load(`${base}model-draco.glb`, (gltf) => {
   gltf.scene.traverse((child) => {
     console.log(child.name);
     if (child.isMesh) {
@@ -322,24 +329,21 @@ loader.load(modelUrl, (gltf) => {
   }
   
   scene.add(gltf.scene);
-}, undefined, (err) => {
+}, 
+// Progress callback
+(xhr) => {
+  console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+}, 
+// Error callback
+(err) => {
   console.error('Error loading model:', err);
-  console.error('Full error details:', err);
-  
-  // Try to fetch the file to see what's being returned
-  fetch(`${base}model.glb`)
-    .then(response => {
-      console.log('Fetch response status:', response.status);
-      console.log('Fetch response headers:', response.headers);
-      return response.text();
-    })
-    .then(text => {
-      console.log('First 200 characters of response:', text.substring(0, 200));
-      if (text.includes('version https://git-lfs.github.com')) {
-        console.error('ERROR: GitHub Pages is serving the Git LFS pointer file, not the actual GLB file!');
-        console.error('You need to host the GLB file elsewhere or use a different hosting solution.');
-      }
-    });
+  // Fallback to non-compressed version if Draco fails
+  console.log('Trying to load non-compressed version...');
+  const fallbackLoader = new GLTFLoader();
+  fallbackLoader.load(`${base}model.glb`, (gltf) => {
+    // Same loading code as above...
+    scene.add(gltf.scene);
+  });
 });
 
 // Raycaster for interactivity
