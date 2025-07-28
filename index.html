@@ -4,419 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Aadarsh Battula - 3D Portfolio</title>
-  <style>
-    #intro-overlay {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(20, 24, 36, 0.75);
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-      font-family: 'Segoe UI', Arial, sans-serif;
-      font-size: 1.2rem;
-      padding: 0;
-      text-align: center;
-    }
-    #resume-overlay,
-    #projects-overlay,
-    #headphone-overlay {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(20, 24, 36, 0.75);
-      z-index: 2000;
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Segoe UI', Arial, sans-serif;
-    }
-    .projects-card {
-      width: 70vw;
-      max-width: 800px;
-      min-height: 60vh;
-      background: #ffffff;
-      border-radius: 20px;
-      box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.25);
-      padding: 3rem 3rem 2.5rem 3rem;
-      display: flex;
-      flex-direction: column;
-      color: #1a2a3a;
-      position: relative;
-      overflow-y: auto;
-      animation: fadeInCard 0.5s cubic-bezier(.4,0,.2,1) 1;
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-    }
-    @keyframes fadeInCard {
-      from { 
-        opacity: 0; 
-        transform: translateY(30px) scale(0.95); 
-      }
-      to { 
-        opacity: 1; 
-        transform: translateY(0) scale(1); 
-      }
-    }
-    .projects-close-btn {
-      position: absolute;
-      top: 1.2rem;
-      right: 1.2rem;
-      background: #f1f5f9;
-      color: #64748b;
-      border: 2px solid #e2e8f0;
-      border-radius: 50%;
-      width: 2.5rem;
-      height: 2.5rem;
-      font-size: 1.3rem;
-      cursor: pointer;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s ease;
-      z-index: 10;
-    }
-    .projects-close-btn:hover {
-      background: #fff;
-      color: #2196f3;
-      border-color: #2196f3;
-      transform: scale(1.08) rotate(90deg);
-      box-shadow: 0 4px 12px rgba(33,150,243,0.2);
-    }
-    .projects-header {
-      font-size: 2.2rem;
-      font-weight: 700;
-      background: linear-gradient(90deg, #2196f3 40%, #43e97b 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 1.5rem;
-      letter-spacing: 0.5px;
-    }
-    .projects-content {
-      font-size: 1.13rem;
-      line-height: 1.7;
-      color: #1a2a3a;
-      margin-bottom: 1.2rem;
-    }
-    .projects-list {
-      margin: 0 0 0.5rem 1.2rem;
-      padding: 0;
-      color: #1a2a3a;
-      font-size: 1.13rem;
-      line-height: 1.7;
-    }
-    .projects-list li {
-      margin-bottom: 0.5rem;
-      padding-left: 0.2rem;
-    }
-    .contact-section {
-      margin-top: 2rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid #e2e8f0;
-    }
-    .contact-links {
-      display: flex;
-      gap: 1.5rem;
-      justify-content: center;
-      margin-top: 1rem;
-      flex-wrap: wrap;
-    }
-    .contact-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      color: #2196f3;
-      text-decoration: none;
-      font-size: 1rem;
-      transition: all 0.3s ease;
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
-      background: rgba(33, 150, 243, 0.08);
-      max-width: 100%;
-      overflow: hidden;
-    }
-    .contact-link:hover {
-      color: #fff;
-      background: linear-gradient(135deg, #2196f3 0%, #43e97b 100%);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(33,150,243,0.25);
-    }
-    .contact-link svg {
-      transition: transform 0.3s ease;
-    }
-    .contact-link:hover svg {
-      transform: scale(1.1);
-    }
-    .enter-btn {
-      margin: 2rem auto 0 auto;
-      border-radius: 12px;
-      width: auto;
-      height: auto;
-      font-size: 1.1rem;
-      padding: 0.8em 2.5em;
-      background: linear-gradient(135deg, #2196f3 0%, #43e97b 100%);
-      color: #fff;
-      box-shadow: 0 4px 20px rgba(33,150,243,0.25);
-      border: none;
-      cursor: pointer;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      transition: all 0.3s ease;
-      position: static;
-    }
-    .enter-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 30px rgba(33,150,243,0.35);
-    }
-    .tech-stack {
-      margin-top: 2.5rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid rgba(33, 150, 243, 0.15);
-      font-size: 0.9rem;
-      color: #64748b;
-      text-align: center;
-    }
-    .tech-stack span {
-      color: #2196f3;
-      font-weight: 600;
-      transition: color 0.3s ease;
-    }
-    .tech-stack:hover span {
-      color: #43e97b;
-    }
-    
-    /* Responsive design */
-    @media (max-width: 768px) {
-      .projects-card {
-        width: 90vw;
-        padding: 2rem 1.5rem;
-      }
-      .projects-header {
-        font-size: 1.8rem;
-      }
-      .contact-links {
-        flex-direction: column;
-        gap: 0.8rem;
-      }
-      .contact-link {
-        width: 100%;
-        justify-content: center;
-        font-size: 0.9rem;
-      }
-    }
-    .spotify-follow-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      color: #fff;
-      background: #1DB954;
-      text-decoration: none;
-      font-size: 1rem;
-      padding: 0.7rem 1.5rem;
-      border-radius: 50px;
-      transition: all 0.3s ease;
-      font-weight: 600;
-    }
-    .spotify-follow-btn:hover {
-      background: #1ed760;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(29, 185, 84, 0.3);
-    }
-    
-    /* Timeline Styles */
-    .timeline-container {
-      position: relative;
-      padding: 1rem 0 1rem 0;
-      margin-left: 2rem;
-    }
-    .timeline-item {
-      position: relative;
-      padding-left: 80px;
-      margin-bottom: 3rem;
-    }
-    .timeline-item:last-child {
-      margin-bottom: 0;
-    }
-    /* Timeline line between markers */
-    .timeline-item:not(:last-child)::after {
-      content: '';
-      position: absolute;
-      left: 40px;
-      top: 22px; /* Start below the marker */
-      bottom: -3rem; /* Extend to next marker */
-      width: 3px;
-      background: linear-gradient(180deg, #2196f3 0%, #43e97b 100%);
-      border-radius: 2px;
-    }
-    .timeline-item:first-child .timeline-marker {
-      box-shadow: 0 0 15px rgba(33, 150, 243, 0.3);
-    }
-    .timeline-item:last-child .timeline-marker {
-      box-shadow: 0 0 15px rgba(67, 233, 123, 0.3);
-    }
-    .timeline-marker {
-      position: absolute;
-      left: 30px;
-      top: 0;
-      width: 22px;
-      height: 22px;
-      background: #fff;
-      border: 4px solid #2196f3;
-      border-radius: 50%;
-      z-index: 1;
-      transition: all 0.3s ease;
-    }
-    .timeline-item:hover .timeline-marker {
-      background: #2196f3;
-      transform: scale(1.2);
-      box-shadow: 0 0 20px rgba(33, 150, 243, 0.5);
-    }
-    .timeline-content {
-      background: #f8f9fa;
-      border-radius: 12px;
-      padding: 1.5rem;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-      display: flex;
-      gap: 1.5rem;
-      transition: all 0.3s ease;
-    }
-    .timeline-content:hover {
-      transform: translateX(5px);
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-    }
-    .experience-image {
-      flex-shrink: 0;
-      width: 80px;
-      height: 80px;
-      background: #fff;
-      border-radius: 12px;
-      padding: 0.5rem;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .experience-image img {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
-    }
-    .experience-details {
-      flex: 1;
-    }
-    .experience-details h3 {
-      margin: 0 0 0.3rem 0;
-      color: #1a2a3a;
-      font-size: 1.3rem;
-      font-weight: 700;
-    }
-    .experience-details h4 {
-      margin: 0 0 0.5rem 0;
-      color: #2196f3;
-      font-size: 1.1rem;
-      font-weight: 600;
-    }
-    .experience-details .date {
-      color: #64748b;
-      font-size: 0.95rem;
-      margin: 0 0 1rem 0;
-      font-weight: 500;
-    }
-    .experience-details ul {
-      margin: 0;
-      padding-left: 1.2rem;
-      color: #4a5568;
-      font-size: 0.95rem;
-      line-height: 1.6;
-    }
-    .experience-details li {
-      margin-bottom: 0.5rem;
-    }
-    
-    /* Projects Grid */
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-      margin-top: 2rem;
-    }
-    .project-card {
-      background: #f8f9fa;
-      border-radius: 12px;
-      padding: 1.5rem;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-      transition: all 0.3s ease;
-      border: 2px solid transparent;
-    }
-    .project-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-      border-color: #2196f3;
-    }
-    .project-card h3 {
-      margin: 0 0 0.5rem 0;
-      color: #1a2a3a;
-      font-size: 1.2rem;
-    }
-    .project-tech {
-      color: #2196f3;
-      font-size: 0.9rem;
-      font-weight: 600;
-      margin: 0 0 1rem 0;
-    }
-    .project-card p {
-      color: #4a5568;
-      font-size: 0.95rem;
-      line-height: 1.6;
-      margin: 0 0 1rem 0;
-    }
-    .project-date {
-      color: #64748b;
-      font-size: 0.85rem;
-      font-weight: 500;
-      margin: 0;
-    }
-    
-    /* Scrollbar styling for the overlay */
-    .projects-card::-webkit-scrollbar {
-      width: 8px;
-    }
-    .projects-card::-webkit-scrollbar-track {
-      background: #f1f1f1;
-      border-radius: 10px;
-    }
-    .projects-card::-webkit-scrollbar-thumb {
-      background: linear-gradient(180deg, #2196f3 0%, #43e97b 100%);
-      border-radius: 10px;
-    }
-    .projects-card::-webkit-scrollbar-thumb:hover {
-      background: linear-gradient(180deg, #1976d2 0%, #2fb966 100%);
-    }
-    
-    /* Responsive timeline */
-    @media (max-width: 768px) {
-      .timeline-container {
-        margin-left: 0;
-      }
-      .timeline-content {
-        flex-direction: column;
-      }
-      .experience-image {
-        width: 60px;
-        height: 60px;
-      }
-      .projects-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body style="margin: 0;">
-  <div id="intro-overlay">
+<body>
+  <!-- Intro Overlay -->
+  <div id="intro-overlay" class="overlay">
     <div class="projects-card">
       <button id="close-intro" class="projects-close-btn" title="Close">&times;</button>
       <h1 class="projects-header">Hey, I'm Aadarsh Battula!</h1>
@@ -461,11 +53,15 @@
       </div>
     </div>
   </div>
-  <div id="resume-overlay">
-    <button id="close-resume" class="projects-close-btn" title="Close" style="position:fixed; top:2rem; right:2rem;">&times;</button>
+
+  <!-- Resume Overlay -->
+  <div id="resume-overlay" class="overlay">
+    <button id="close-resume" class="projects-close-btn" style="position:fixed; top:2rem; right:2rem;" title="Close">&times;</button>
     <iframe id="resume-pdf" src="/portfolio/aresume.pdf#view=FitH&toolbar=0&navpanes=0&scrollbar=0" style="width:80vw; height:80vh; border:none; background:#fff; border-radius:12px; box-shadow:0 20px 50px -12px rgba(0, 0, 0, 0.25);"></iframe>
   </div>
-  <div id="projects-overlay">
+
+  <!-- Projects Overlay -->
+  <div id="projects-overlay" class="overlay">
     <div class="projects-card" style="max-width: 900px; max-height: 85vh; overflow-y: auto;">
       <button id="close-projects" class="projects-close-btn" title="Close">&times;</button>
       <h1 class="projects-header">Work Experience</h1>
@@ -476,7 +72,6 @@
           <div class="timeline-marker"></div>
           <div class="timeline-content">
             <div class="experience-image">
-              <!-- Add Cisco Meraki logo as cisco-meraki-logo.png -->
               <img src="cisco-meraki-logo.jpeg" alt="Cisco Meraki" />
             </div>
             <div class="experience-details">
@@ -530,7 +125,7 @@
           </div>
         </div>
 
-        <!-- Experience 4: WebDev Club -->
+        <!-- Experience 4: Study Abroad -->
         <div class="timeline-item">
           <div class="timeline-marker"></div>
           <div class="timeline-content">
@@ -564,14 +159,13 @@
                 <li>Developed secure file-sharing web application for the military under a multi-million dollar DoD contract for over 10,000 users.</li>
                 <li>Utilized HTML, CSS, Angular (TypeScript) to create engaging frontend components enhancing user experience.</li>
                 <li>Implemented backend functionalities using Java for data processing and retrieval from OracleSQL database.</li>
-                <li>Added 25+ Java and TypeScript unit tests, spearheaded AngularJS-to-Angular 6 migration, implemented sorting feature for
-                  audited messages.</li>
+                <li>Added 25+ Java and TypeScript unit tests, spearheaded AngularJS-to-Angular 6 migration, implemented sorting feature for audited messages.</li>
               </ul>
             </div>
           </div>
         </div>
 
-        <!-- Experience 6: Placeholder for additional experience -->
+        <!-- Experience 6: VIP Research -->
         <div class="timeline-item">
           <div class="timeline-marker"></div>
           <div class="timeline-content">
@@ -583,8 +177,7 @@
               <h4>Automated Algorithm Design VIP • Atlanta, Georgia</h4>
               <p class="date"></p>
               <ul>
-                <li>Working on a 6-person team to use Multiple-Objective Genetic Programming techniques to build AutoML models,
-                  detecting the occurrence of 14 pulmonary pathologies based 100,000 images in the ChestX-ray14 dataset.</li>
+                <li>Working on a 6-person team to use Multiple-Objective Genetic Programming techniques to build AutoML models, detecting the occurrence of 14 pulmonary pathologies based 100,000 images in the ChestX-ray14 dataset.</li>
                 <li>Achieved an 80% accuracy when predicting who survived the titanic using K-Nearest Neighbors Algorithm.</li>
               </ul>
             </div>
@@ -639,7 +232,9 @@
       </div>
     </div>
   </div>
-  <div id="headphone-overlay">
+
+  <!-- Headphone/Music Overlay -->
+  <div id="headphone-overlay" class="overlay">
     <div class="projects-card">
       <button id="close-headphone" class="projects-close-btn" title="Close">&times;</button>
       <h1 class="projects-header">Music & Audio</h1>
@@ -654,23 +249,7 @@
       </div>
     </div>
   </div>
+
   <script type="module" src="./main.js"></script>
-  <script>
-    document.getElementById('close-intro').onclick = function() {
-      document.getElementById('intro-overlay').style.display = 'none';
-    };
-    document.getElementById('enter-portfolio').onclick = function() {
-      document.getElementById('intro-overlay').style.display = 'none';
-    };
-    document.getElementById('close-resume').onclick = function() {
-      document.getElementById('resume-overlay').style.display = 'none';
-    };
-    document.getElementById('close-projects').onclick = function() {
-      document.getElementById('projects-overlay').style.display = 'none';
-    };
-    document.getElementById('close-headphone').onclick = function() {
-      document.getElementById('headphone-overlay').style.display = 'none';
-    };
-  </script>
 </body>
 </html>
