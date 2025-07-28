@@ -245,7 +245,7 @@ const loader = new GLTFLoader();
 loader.setDRACOLoader(dracoLoader);
 
 // Load the compressed model from GitHub Releases
-loader.load(`${RELEASE_BASE}model-draco.glb`, (gltf) => {
+loader.load(`${RELEASE_BASE}model.glb`, (gltf) => {
   gltf.scene.traverse((child) => {
     console.log(child.name);
     if (child.isMesh) {
