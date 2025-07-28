@@ -5,8 +5,6 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
 import { PMREMGenerator } from 'three';
 
-// Get the base URL for local assets (images, etc)
-const base = import.meta.env.BASE_URL;
 
 // GitHub Releases URL for large assets (GLB, HDR files)
 const RELEASE_BASE = 'https://corsproxy.io/?https://github.com/aadarshb123/portfolio/releases/download/v1.0.0/';
