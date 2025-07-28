@@ -1,7 +1,7 @@
 // Configuration constants
 export const CONFIG = {
   // GitHub Releases URL for large assets
-  RELEASE_BASE: 'https://corsproxy.io/?https://github.com/aadarshb123/portfolio/releases/download/v1.0.0/',
+  RELEASE_BASE: 'https://corsproxy.io/?https://github.com/aadarshb123/portfolio/releases/download/v2.0.0/',
   
   // Camera settings
   CAMERA: {
