@@ -247,7 +247,7 @@ const loader = new GLTFLoader();
 loader.setDRACOLoader(dracoLoader);
 
 // Load the compressed model from GitHub Releases
-loader.load(`${RELEASE_BASE}model.glb`, (gltf) => {
+loader.load(`${RELEASE_BASE}model-draco.glb`, (gltf) => {
   gltf.scene.traverse((child) => {
     console.log(child.name);
     if (child.isMesh) {
@@ -352,7 +352,7 @@ loader.load(`${RELEASE_BASE}model.glb`, (gltf) => {
   // Fallback to non-compressed version if Draco fails
   console.log('Trying to load non-compressed version...');
   const fallbackLoader = new GLTFLoader();
-  fallbackLoader.load(`${RELEASE_BASE}model.glb`, (gltf) => {
+  fallbackLoader.load(`${RELEASE_BASE}model-draco.glb`, (gltf) => {
     gltf.scene.traverse((child) => {
       console.log(child.name);
       if (child.isMesh) {
