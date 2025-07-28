@@ -3,9 +3,10 @@ import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 import { CLICKABLE_OBJECTS, CONFIG } from './config.js';
 
 export class ModelLoader {
-  constructor(sceneManager, interactionManager) {
+  constructor(sceneManager, interactionManager, onLoadComplete = null) {
     this.sceneManager = sceneManager;
     this.interactionManager = interactionManager;
+    this.onLoadComplete = onLoadComplete;
     this.meshGroups = new Map();
     
     this.setupLoaders();
@@ -75,6 +76,13 @@ export class ModelLoader {
     
     // Add to scene
     this.sceneManager.addToScene(gltf.scene);
+    
+    // Notify that loading is complete
+    if (this.onLoadComplete) {
+      this.onLoadComplete();
+    }
+    
+    console.log('3D model loaded and processed successfully!');
   }
   
   categorizeMesh(mesh) {

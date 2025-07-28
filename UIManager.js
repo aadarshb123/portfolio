@@ -37,8 +37,35 @@ export class UIManager {
   setupIntroButtons() {
     const enterButton = document.getElementById('enter-portfolio');
     if (enterButton) {
-      enterButton.onclick = () => this.hideOverlay('intro-overlay');
+      enterButton.onclick = () => {
+        if (!enterButton.classList.contains('loading')) {
+          this.hideOverlay('intro-overlay');
+        }
+      };
     }
+    
+    // Set initial loading state
+    this.setLoadingState(true);
+  }
+  
+  setLoadingState(isLoading) {
+    const enterButton = document.getElementById('enter-portfolio');
+    if (!enterButton) return;
+    
+    if (isLoading) {
+      enterButton.classList.add('loading');
+      enterButton.innerHTML = `
+        <div class="loading-cube"></div>
+        <span class="loading-text">Loading Experience...</span>
+      `;
+    } else {
+      enterButton.classList.remove('loading');
+      enterButton.innerHTML = 'Enter Portfolio';
+    }
+  }
+  
+  onModelLoaded() {
+    this.setLoadingState(false);
   }
   
   setupClickOutside() {

@@ -188,11 +188,61 @@ body {
   letter-spacing: 0.5px;
   transition: all 0.3s ease;
   position: static;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  min-height: 3.2rem;
 }
 
-.enter-btn:hover {
+.enter-btn:hover:not(.loading) {
   transform: translateY(-3px);
   box-shadow: 0 8px 30px rgba(33,150,243,0.35);
+}
+
+.enter-btn.loading {
+  cursor: not-allowed;
+  background: linear-gradient(135deg, #64748b 0%, #94a3b8 100%);
+  box-shadow: 0 4px 20px rgba(100,116,139,0.25);
+}
+
+.enter-btn.loading:hover {
+  transform: none;
+  box-shadow: 0 4px 20px rgba(100,116,139,0.25);
+}
+
+/* 2D Loading Square Animation */
+.loading-cube {
+  width: 16px;
+  height: 16px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  border-radius: 2px;
+  animation: rotateSquare 1.5s infinite linear;
+  flex-shrink: 0;
+}
+
+@keyframes rotateSquare {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Loading text animation */
+.loading-text {
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
 }
 
 .spotify-follow-btn {

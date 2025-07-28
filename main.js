@@ -1,7 +1,7 @@
-import { SceneManager } from '/SceneManager.js';
-import { InteractionManager } from '/InteractionManager.js';
-import { ModelLoader } from '/ModelLoader.js';
-import { UIManager } from '/UIManager.js';
+import { SceneManager } from './SceneManager.js';
+import { InteractionManager } from './InteractionManager.js';
+import { ModelLoader } from './ModelLoader.js';
+import { UIManager } from './UIManager.js';
 
 class PortfolioApp {
   constructor() {
@@ -18,8 +18,14 @@ class PortfolioApp {
       // Initialize managers
       this.sceneManager = new SceneManager();
       this.interactionManager = new InteractionManager(this.sceneManager);
-      this.modelLoader = new ModelLoader(this.sceneManager, this.interactionManager);
       this.uiManager = new UIManager();
+      
+      // Create model loader with callback for when loading completes
+      this.modelLoader = new ModelLoader(
+        this.sceneManager, 
+        this.interactionManager,
+        () => this.uiManager.onModelLoaded() // Callback to update UI when model loads
+      );
       
       // Load the 3D model
       await this.modelLoader.loadModel();
@@ -27,6 +33,10 @@ class PortfolioApp {
       console.log('Portfolio app initialized successfully!');
     } catch (error) {
       console.error('Error initializing portfolio app:', error);
+      // On error, still allow entering the portfolio
+      if (this.uiManager) {
+        this.uiManager.onModelLoaded();
+      }
     }
   }
   
