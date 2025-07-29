@@ -5,23 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Aadarsh Battula - 3D Portfolio</title>
   <link rel="stylesheet" href="styles.css">
+  
+  <!-- Import Map (JSON only) -->
   <script type="importmap">
-    {
-      "imports": {
-        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
-        "three/examples/jsm/": "https://unpkg.com/three@0.160.0/examples/jsm/"
-      }
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/examples/jsm/": "https://unpkg.com/three@0.160.0/examples/jsm/"
     }
-    </script>
-    <script>
-      window.addEventListener('error', (e) => {
-        console.error('Global error:', e.error, e.filename, e.lineno);
-      });
-      
-      window.addEventListener('unhandledrejection', (e) => {
-        console.error('Unhandled promise rejection:', e.reason);
-      });
-    </script>
+  }
+  </script>
+  
+  <!-- Error Handling (separate script) -->
+  <script>
+    window.addEventListener('error', (e) => {
+      console.error('Global error:', e.error, e.filename, e.lineno);
+    });
+    
+    window.addEventListener('unhandledrejection', (e) => {
+      console.error('Unhandled promise rejection:', e.reason);
+    });
+  </script>
 </head>
 <body>
   <!-- Intro Overlay -->
@@ -77,7 +81,7 @@
   <!-- Resume Overlay -->
   <div id="resume-overlay" class="overlay">
     <button id="close-resume" class="projects-close-btn" style="position:fixed; top:2rem; right:2rem;" title="Close">&times;</button>
-    <iframe id="resume-pdf" src="p/aresume.pdf#view=FitH&toolbar=0&navpanes=0&scrollbar=0" style="width:80vw; height:80vh; border:none; background:#fff; border-radius:12px; box-shadow:0 20px 50px -12px rgba(0, 0, 0, 0.25);"></iframe>
+    <iframe id="resume-pdf" src="aresume.pdf#view=FitH&toolbar=0&navpanes=0&scrollbar=0" style="width:80vw; height:80vh; border:none; background:#fff; border-radius:12px; box-shadow:0 20px 50px -12px rgba(0, 0, 0, 0.25);"></iframe>
   </div>
 
   <!-- Projects Overlay -->
@@ -92,7 +96,7 @@
           <div class="timeline-marker"></div>
           <div class="timeline-content">
             <div class="experience-image">
-              <img src="p/cisco-meraki-logo.jpeg" alt="Cisco Meraki" />
+              <img src="cisco-meraki-logo.jpeg" alt="Cisco Meraki" />
             </div>
             <div class="experience-details">
               <h3>Full Stack Software Engineer Intern</h3>
@@ -112,7 +116,7 @@
           <div class="timeline-marker"></div>
           <div class="timeline-content">
             <div class="experience-image">
-              <img src="p/georgia-tech-logo.jpeg" alt="Georgia Tech" />
+              <img src="georgia-tech-logo.jpeg" alt="Georgia Tech" />
             </div>
             <div class="experience-details">
               <h3>Senior Teaching Assistant</h3>
@@ -131,7 +135,7 @@
           <div class="timeline-marker"></div>
           <div class="timeline-content">
             <div class="experience-image">
-              <img src="p/gt-webdev-logo.jpeg" alt="GT WebDev" />
+              <img src="gt-webdev-logo.jpeg" alt="GT WebDev" />
             </div>
             <div class="experience-details">
               <h3>Engineering Manager</h3>
@@ -150,7 +154,7 @@
           <div class="timeline-marker"></div>
           <div class="timeline-content">
             <div class="experience-image">
-              <img src="p/study-abroad.jpeg" alt="study abroad" />
+              <img src="study-abroad.jpeg" alt="study abroad" />
             </div>
             <div class="experience-details">
               <h3>Student</h3>
@@ -169,7 +173,7 @@
           <div class="timeline-marker"></div>
           <div class="timeline-content">
             <div class="experience-image">
-              <img src="p/gtri-logo.jpeg" alt="GTRI" />
+              <img src="gtri-logo.jpeg" alt="GTRI" />
             </div>
             <div class="experience-details">
               <h3>Full Stack Software Engineer Intern</h3>
@@ -190,7 +194,7 @@
           <div class="timeline-marker"></div>
           <div class="timeline-content">
             <div class="experience-image">
-              <img src="p/vip.jpeg" alt="VIP" />
+              <img src="vip.jpeg" alt="VIP" />
             </div>
             <div class="experience-details">
               <h3>Undergraduate Research Assistant</h3>
@@ -258,7 +262,7 @@
     <div class="projects-card">
       <button id="close-headphone" class="projects-close-btn" title="Close">&times;</button>
       <h1 class="projects-header">Music & Audio</h1>
-      <iframe data-testid="embed-iframe" style="border-radius:12px; width:100%; min-height:352px; background:#ffffff;" src="https://open.spotify.com/embed/playlist/37i9dQZF1FoMD2GlYaqPkO?utm_source=generator" frameBorder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      <iframe data-testid="embed-iframe" style="border-radius:12px; width:100%; min-height:352px; background:#ffffff;" src="https://open.spotify.com/embed/playlist/37i9dQZF1FoMD2GlYaqPkO?utm_source=generator" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
       <div style="text-align: center; margin-top: 2rem;">
         <a href="https://open.spotify.com/user/svhek3bncwzshhnddei4abwa9?si=945df6c9a34148b1" target="_blank" class="spotify-follow-btn">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
