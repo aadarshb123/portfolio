@@ -12,13 +12,15 @@
         "three/examples/jsm/": "https://unpkg.com/three@0.160.0/examples/jsm/"
       }
     }
-    window.addEventListener('error', (e) => {
-      console.error('Global error:', e.error, e.filename, e.lineno);
-    });
-    
-    window.addEventListener('unhandledrejection', (e) => {
-      console.error('Unhandled promise rejection:', e.reason);
-    });
+    </script>
+    <script>
+      window.addEventListener('error', (e) => {
+        console.error('Global error:', e.error, e.filename, e.lineno);
+      });
+      
+      window.addEventListener('unhandledrejection', (e) => {
+        console.error('Unhandled promise rejection:', e.reason);
+      });
     </script>
 </head>
 <body>
