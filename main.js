@@ -11,7 +11,7 @@ console.log('✅ Three.js imports loaded');
 
 // Configuration (embedded to avoid import issues)
 const CONFIG = {
-  RELEASE_BASE: 'https://corsproxy.io/?https://github.com/aadarshb123/portfolio/releases/download/v1.0.0/',
+  RELEASE_BASE: 'https://corsproxy.io/?https://github.com/aadarshb123/portfolio/releases/download/v2.0.0/',
   CAMERA: {
     FOV: 60,
     NEAR: 0.1,
