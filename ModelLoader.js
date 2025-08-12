@@ -32,7 +32,7 @@ export class ModelLoader {
   
   async loadModel() {
     try {
-      const gltf = await this.loadGLTF(`${CONFIG.RELEASE_BASE}model-draco.glb`);
+      const gltf = await this.loadGLTF(`${CONFIG.RELEASE_BASE}model-compressed-v1.glb`);
       this.processModel(gltf);
     } catch (error) {
       console.error('Error loading primary model:', error);
