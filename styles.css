@@ -4,6 +4,18 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
+body {
+  /* Default state: A sharp, black arrow pointer, similar to Figma's "Move" tool.
+  */
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 28 28"><path fill="%23121212" stroke="white" stroke-width="1.5" stroke-linejoin="round" d="M4.23,3.45,24.55,12.33a.5.5,0,0,1,0,.89L15.3,17.45,11,25.4a.5.5,0,0,1-.88-.2L5.8,4.33A.5.5,0,0,1,4.23,3.45Z"/></svg>') 4 4, auto;
+}
+
+.clickable-hover {
+  /* Hover state: A clean, black hand pointer, similar to Figma's link-select tool.
+  */
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 28 28"><path fill="%23121212" stroke="white" stroke-width="2" stroke-linejoin="round" d="M11.93,24.23,9.75,18.57a.5.5,0,0,0-.68-.3L3.33,19.49a.5.5,0,0,1-.4-.73L9.67,4.33a.5.5,0,0,1,.89.19l3.26,9.33a.5.5,0,0,0,.46.35l5.58.5a.5.5,0,0,1,.44.7l-5.3,5.81a.5.5,0,0,0-.14.5L16,24.1a.5.5,0,0,1-.78.4Z"/></svg>') 8 4, auto;
+}
+
 /* Overlay base styles */
 .overlay {
   position: fixed;
