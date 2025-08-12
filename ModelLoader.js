@@ -32,13 +32,13 @@ export class ModelLoader {
   
   async loadModel() {
     try {
-      const gltf = await this.loadGLTF(`${CONFIG.RELEASE_BASE}model.glb`);
+      const gltf = await this.loadGLTF(`${CONFIG.RELEASE_BASE}model-draco.glb`);
       this.processModel(gltf);
     } catch (error) {
       console.error('Error loading primary model:', error);
       try {
         console.log('Trying fallback model...');
-        const gltf = await this.loadGLTF(`${CONFIG.RELEASE_BASE}model-draco.glb`);
+        const gltf = await this.loadGLTF(`${CONFIG.RELEASE_BASE}model.glb`);
         this.processModel(gltf);
       } catch (fallbackError) {
         console.error('Error loading fallback model:', fallbackError);
