@@ -31,18 +31,14 @@ export class ModelLoader {
   }
   
   async loadModel() {
+    const modelUrl = 'https://d2fv4trqk78kwg.cloudfront.net/model.glb';
+
     try {
-      const gltf = await this.loadGLTF(`/model-compressed-v1.glb`);
+      const gltf = await this.loadGLTF(modelUrl);
       this.processModel(gltf);
     } catch (error) {
-      console.error('Error loading primary model:', error);
-      try {
-        console.log('Trying fallback model...');
-        const gltf = await this.loadGLTF(`${CONFIG.RELEASE_BASE}model.glb`);
-        this.processModel(gltf);
-      } catch (fallbackError) {
-        console.error('Error loading fallback model:', fallbackError);
-      }
+      console.error(`Error loading model from CloudFront: ${error}`);
+      // Handle the error appropriately, e.g., show a message to the user.
     }
   }
   
@@ -52,7 +48,7 @@ export class ModelLoader {
         url,
         (gltf) => resolve(gltf),
         (xhr) => {
-          console.log('GLB ' + (xhr.loaded / xhr.total * 100) + '% loaded');
+          console.log(`Model loading: ${(xhr.loaded / xhr.total * 100).toFixed(2)}% loaded`);
         },
         (error) => reject(error)
       );
