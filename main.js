@@ -193,7 +193,7 @@ function loadModel() {
   loader.setDRACOLoader(dracoLoader);
   
   loader.load(
-    `${CONFIG.RELEASE_BASE}finalmodel-v1.glb`,
+    `${CONFIG.RELEASE_BASE}final-v2.glb`,
     (gltf) => {
       console.log('✅ Model loaded, processing...');
       
@@ -232,7 +232,7 @@ function loadFallbackModel(loader) {
   console.log('🔄 Trying fallback model...');
   
   loader.load(
-    `${CONFIG.RELEASE_BASE}finalmodel-v1.glb`,
+    `${CONFIG.RELEASE_BASE}model.glb`,
     (gltf) => {
       console.log('✅ Fallback model loaded');
       
