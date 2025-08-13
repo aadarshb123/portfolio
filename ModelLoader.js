@@ -31,7 +31,9 @@ export class ModelLoader {
   }
   
   async loadModel() {
-    const modelUrl = 'https://d2fv4trqk78kwg.cloudfront.net/model.glb';
+    // --- IMPORTANT ---
+    // Now loading the smaller, compressed model for faster performance.
+    const modelUrl = 'https://d2fv4trqk78kwg.cloudfront.net/finalmodel-v1.glb';
 
     try {
       const gltf = await this.loadGLTF(modelUrl);

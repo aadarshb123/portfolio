@@ -11,7 +11,7 @@ console.log('✅ Three.js imports loaded');
 
 // Configuration (embedded to avoid import issues)
 const CONFIG = {
-  RELEASE_BASE: 'https://corsproxy.io/?https://github.com/aadarshb123/portfolio/releases/download/v2.0.0/',
+  RELEASE_BASE: 'https://d2fv4trqk78kwg.cloudfront.net/',
   CAMERA: {
     FOV: 60,
     NEAR: 0.1,
@@ -193,7 +193,7 @@ function loadModel() {
   loader.setDRACOLoader(dracoLoader);
   
   loader.load(
-    `${CONFIG.RELEASE_BASE}model.glb`,
+    `${CONFIG.RELEASE_BASE}finalmodel-v1.glb`,
     (gltf) => {
       console.log('✅ Model loaded, processing...');
       
@@ -232,7 +232,7 @@ function loadFallbackModel(loader) {
   console.log('🔄 Trying fallback model...');
   
   loader.load(
-    `${CONFIG.RELEASE_BASE}model-draco.glb`,
+    `${CONFIG.RELEASE_BASE}finalmodel-v1.glb`,
     (gltf) => {
       console.log('✅ Fallback model loaded');
       
