@@ -16,6 +16,12 @@ body {
   cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 28 28"><path fill="%23121212" stroke="white" stroke-width="2" stroke-linejoin="round" d="M11.93,24.23,9.75,18.57a.5.5,0,0,0-.68-.3L3.33,19.49a.5.5,0,0,1-.4-.73L9.67,4.33a.5.5,0,0,1,.89.19l3.26,9.33a.5.5,0,0,0,.46.35l5.58.5a.5.5,0,0,1,.44.7l-5.3,5.81a.5.5,0,0,0-.14.5L16,24.1a.5.5,0,0,1-.78.4Z"/></svg>') 8 4, auto;
 }
 
+.project-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
 /* Overlay base styles */
 .overlay {
   position: fixed;
@@ -399,7 +405,7 @@ body {
   transition: all 0.3s ease;
 }
 
-.project-card:hover {
+.project-card-link:hover .project-card {
   transform: translateY(-5px);
   box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1);
   border-color: #000;

@@ -9,8 +9,8 @@
   <script type="importmap">
   {
     "imports": {
-      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
-      "three/examples/jsm/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+      "three/examples/jsm/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
     }
   }
   </script>
@@ -211,47 +211,60 @@
       <h1 class="projects-header" style="margin-top: 3rem;">Featured Projects</h1>
       
       <div class="projects-grid">
-        <div class="project-card">
-          <h3>GT Lost & Found Application</h3>
-          <p class="project-tech">MongoDB, Express.js, React, Node.js</p>
-          <p>Project allowing students to report lost and found items using pin on a map. Built with full MERN stack integration for real-time updates and location-based search functionality.</p>
-          <p class="project-date">WebDev @ GT • Jan 2025 - May 2025</p>
-        </div>
+        <!-- ✅ WRAP EACH CARD IN AN <a> TAG LIKE THIS -->
+        <a href="https://github.com/aadarshb123/lost-found" target="_blank" class="project-card-link">
+          <div class="project-card">
+            <h3>GT Lost & Found Application</h3>
+            <p class="project-tech">MongoDB, Express.js, React, Node.js</p>
+            <p>Project allowing students to report lost and found items using pins on a map. Built with full MERN stack integration for real-time updates and location-based search functionality.</p>
+            <p class="project-date">WebDev @ GT • Spring 2025</p>
+          </div>
+        </a>
 
-        <div class="project-card">
-          <h3>Profound.ai</h3>
-          <p class="project-tech">React, Flask, MongoDB, LangChain, OpenAI API</p>
-          <p>RAG-powered lecturer agent that presents lecture slides and provides real-time Q&A. Extracted text from course files using Canvas API and stored documents as vector embeddings.</p>
-          <p class="project-date">HackGT Project • September 2024</p>
-        </div>
+        <a href="https://devpost.com/software/profound-ai" target="_blank" class="project-card-link">
+          <div class="project-card">
+            <h3>Profound.ai</h3>
+            <p class="project-tech">React, Flask, MongoDB, LangChain, OpenAI API</p>
+            <p>RAG-powered lecturer agent that presents lecture slides and provides real-time Q&A. Extracted text from course files using Canvas API and stored documents as vector embeddings.</p>
+            <p class="project-date">HackGT Project • Fall 2024</p>
+          </div>
+        </a>
 
-        <div class="project-card">
-          <h3>Dorm Roommate Matching System</h3>
-          <p class="project-tech">MERN Stack, Flask</p>
-          <p>Developed a comprehensive roommate matching platform for Georgia Tech students. Implemented compatibility algorithms and preference-based matching for optimal dorm assignments.</p>
-          <p class="project-date">WebDev @ GT • Aug 2024 - Dec 2024</p>
-        </div>
+        <a href="https://github.com/pranavsreedhar123/dorm-roommate-matching" target="_blank" class="project-card-link">
+          <div class="project-card">
+            <h3>Dorm Roommate Matching System</h3>
+            <p class="project-tech">MERN Stack, Flask</p>
+            <p>Developed a comprehensive roommate matching platform for Georgia Tech students. Implemented compatibility algorithms and preference-based matching for optimal dorm assignments.</p>
+            <p class="project-date">WebDev @ GT • Fall 2024</p>
+          </div>
+        </a>
 
-        <div class="project-card">
-          <h3>Predicting Virality of YouTube Videos</h3>
-          <p class="project-tech">Python, Scikit-Learn, TensorFlow</p>
-          <p>Analyzed YouTube video features (titles, descriptions, thumbnails) and their impact on engagement metrics using machine learning techniques including NLP preprocessing, KNN, CNN, and SVM.</p>
-          <p class="project-date">CS 4641 ML • Sep 2024 - Dec 2024</p>
-        </div>
+        <a href="https://github.gatech.edu/atripathi83/YTViralPrediction-4641" target="_blank" class="project-card-link">
+          <div class="project-card">
+            <h3>Predicting Virality of YouTube Videos</h3>
+            <p class="project-tech">Python, Scikit-Learn, TensorFlow</p>
+            <p>Analyzed YouTube video features (titles, descriptions, thumbnails) and their impact on engagement metrics using machine learning techniques including NLP preprocessing, KNN, CNN, and SVM.</p>
+            <p class="project-date">CS 4641 ML • Fall 2024</p>
+          </div>
+        </a>
         
-        <div class="project-card">
-          <h3>GT StudyHive</h3>
-          <p class="project-tech">MongoDB, Express.js, React, Node.js</p>
-          <p>MERN application enabling Georgia Tech students to start or join existing study sessions on campus. Integrated Google Maps API and implemented user authentication.</p>
-          <p class="project-date">WebDev Club • Spring 2024</p>
-        </div>
+        <a href="https://github.gatech.edu/GTStudyHive" target="_blank" class="project-card-link">
+          <div class="project-card">
+            <h3>GT StudyHive</h3>
+            <p class="project-tech">MongoDB, Express.js, React, Node.js</p>
+            <p>MERN application enabling Georgia Tech students to start or join existing study sessions on campus. Integrated Google Maps API and implemented user authentication.</p>
+            <p class="project-date">WebDev Club • Spring 2024</p>
+          </div>
+        </a>
         
-        <div class="project-card">
-          <h3>2D Dungeon Crawler Game</h3>
-          <p class="project-tech">Java, Android Studio, MVVM Architecture</p>
-          <p>Developed a Dungeon Crawler Android application using MVVM software architecture in an agile environment. Designed UML diagrams to organize game objects.</p>
-          <p class="project-date">CS 2340 • Fall 2023</p>
-        </div>
+        <a href="https://github.com/24-2340/CS2340C_Team24_S0.5" target="_blank" class="project-card-link">
+          <div class="project-card">
+            <h3>2D Dungeon Crawler Game</h3>
+            <p class="project-tech">Java, Android Studio, MVVM Architecture</p>
+            <p>Developed a Dungeon Crawler Android application using MVVM software architecture in an agile environment. Designed UML diagrams to organize game objects.</p>
+            <p class="project-date">CS 2340 • Fall 2023</p>
+          </div>
+        </a>
       </div>
     </div>
   </div>
