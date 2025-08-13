@@ -11,7 +11,7 @@ console.log('✅ Three.js imports loaded');
 
 // Configuration (embedded to avoid import issues)
 const CONFIG = {
-  RELEASE_BASE: 'https://d2fv4trqk78kwg.cloudfront.net/',
+  RELEASE_BASE: 'https://d2pnbujiw3xzto.cloudfront.net/',
   CAMERA: {
     FOV: 60,
     NEAR: 0.1,

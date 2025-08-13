@@ -1,7 +1,7 @@
 // Configuration constants
 export const CONFIG = {
   // GitHub Releases URL for large assets
-  RELEASE_BASE: 'https://d2fv4trqk78kwg.cloudfront.net/',
+  RELEASE_BASE: 'https://d2pnbujiw3xzto.cloudfront.net/',
   
   // Camera settings
   CAMERA: {
