@@ -310,6 +310,14 @@ function removeOutlines() {
   outlineMeshes = [];
 }
 
+function isAnyOverlayOpen() {
+  const overlays = ['intro-overlay', 'resume-overlay', 'projects-overlay', 'headphone-overlay'];
+  return overlays.some(id => {
+    const overlay = document.getElementById(id);
+    return overlay && overlay.style.display === 'flex';
+  });
+}
+
 function onClick(event) {
   mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
   mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
@@ -322,6 +330,10 @@ function onClick(event) {
     if (intersects.length > 0) {
       const obj = CLICKABLE_OBJECTS.find(o => o.name === name);
       if (obj) {
+        // Prevent opening overlays if any overlay is already open
+        if (obj.action === 'overlay' && isAnyOverlayOpen()) {
+          return;
+        }
         handleClick(obj);
         return;
       }
@@ -351,10 +363,15 @@ function onMouseMove(event) {
     
     const intersects = raycaster.intersectObjects(meshes, true);
     if (intersects.length > 0) {
-      hovering = true;
-      createOutline(meshes);
-      document.body.style.cursor = 'pointer';
-      break;
+      const obj = CLICKABLE_OBJECTS.find(o => o.name === name);
+      // Only show hover effect if no overlay is open (for overlay objects)
+      // or if it's a link object (always show hover for links)
+      if (obj && (obj.action === 'link' || !isAnyOverlayOpen())) {
+        hovering = true;
+        createOutline(meshes);
+        document.body.style.cursor = 'pointer';
+        break;
+      }
     }
   }
   
