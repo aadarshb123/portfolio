@@ -58,7 +58,7 @@ const CLICKABLE_OBJECTS = [
     name: 'movieNumber',
     meshNames: ['Movie_numberator'],
     action: 'link',
-    target: 'https://www.imdb.com/user/ur205981400/?ref_=hm_nv_profile'
+    target: 'https://letterboxd.com/aadarshb123/'
   },
   {
     name: 'runningShoes',
