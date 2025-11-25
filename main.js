@@ -276,8 +276,9 @@ function updateLoadingProgress(percent) {
   if (enterButton && enterButton.classList.contains('loading')) {
     const loadingText = enterButton.querySelector('.loading-text');
     if (loadingText) {
-      loadingText.textContent = `Loading... ${percent}%`;
+      loadingText.textContent = `${percent}%`;
     }
+    enterButton.style.setProperty('--load-percent', `${percent}%`);
   }
 }
 

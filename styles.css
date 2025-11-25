@@ -206,8 +206,9 @@ body {
 
 .enter-btn.loading {
   cursor: not-allowed;
-  background: #555;
-  color: #aaa;
+  background: linear-gradient(to right, #000 var(--load-percent, 0%), #555 var(--load-percent, 0%));
+  color: #fff;
+  --load-percent: 0%;
 }
 
 /* Loading animation */
