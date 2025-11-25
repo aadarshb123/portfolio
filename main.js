@@ -218,7 +218,9 @@ function loadModel() {
       console.log('✅ Model processed and added to scene');
     },
     (xhr) => {
-      console.log('GLB ' + (xhr.loaded / xhr.total * 100) + '% loaded');
+      const percent = Math.floor(xhr.loaded / xhr.total * 100);
+      console.log('GLB ' + percent + '% loaded');
+      updateLoadingProgress(percent);
     },
     (error) => {
       console.error('❌ Error loading model:', error);
@@ -256,7 +258,9 @@ function loadFallbackModel(loader) {
       console.log('✅ Fallback model processed');
     },
     (xhr) => {
-      console.log('Fallback GLB ' + (xhr.loaded / xhr.total * 100) + '% loaded');
+      const percent = Math.floor(xhr.loaded / xhr.total * 100);
+      console.log('Fallback GLB ' + percent + '% loaded');
+      updateLoadingProgress(percent);
     },
     (error) => {
       console.error('❌ Fallback model also failed:', error);
@@ -267,6 +271,16 @@ function loadFallbackModel(loader) {
 }
 
 // UI Management
+function updateLoadingProgress(percent) {
+  const enterButton = document.getElementById('enter-portfolio');
+  if (enterButton && enterButton.classList.contains('loading')) {
+    const loadingText = enterButton.querySelector('.loading-text');
+    if (loadingText) {
+      loadingText.textContent = `Loading... ${percent}%`;
+    }
+  }
+}
+
 function updateUI() {
   const enterButton = document.getElementById('enter-portfolio');
   if (enterButton) {
