@@ -1,5 +1,11 @@
 console.log('🚀 Portfolio script starting...');
 
+// Set resume PDF src dynamically using Vite's base URL
+const resumePdfIframe = document.getElementById('resume-pdf');
+if (resumePdfIframe) {
+  resumePdfIframe.src = `${import.meta.env.BASE_URL}p/aresume.pdf#view=FitH&toolbar=0&navpanes=0&scrollbar=0`;
+}
+
 // Import Three.js using the import map
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
