@@ -95,6 +95,7 @@ let outlineMeshes = [];
 let raycaster = new THREE.Raycaster();
 let mouse = new THREE.Vector2();
 let modelLoaded = false;
+let clicksDisabled = false;
 
 // Initialize mesh groups
 CLICKABLE_OBJECTS.forEach(obj => {
@@ -340,21 +341,22 @@ function isAnyOverlayOpen() {
 }
 
 function onClick(event) {
+  // Don't process clicks if disabled (cooldown period) or overlay is open
+  if (clicksDisabled || isAnyOverlayOpen()) {
+    return;
+  }
+
   mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
   mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
   raycaster.setFromCamera(mouse, camera);
-  
+
   for (const [name, meshes] of meshGroups) {
     if (meshes.length === 0) continue;
-    
+
     const intersects = raycaster.intersectObjects(meshes, true);
     if (intersects.length > 0) {
       const obj = CLICKABLE_OBJECTS.find(o => o.name === name);
       if (obj) {
-        // Prevent opening overlays if any overlay is already open
-        if (obj.action === 'overlay' && isAnyOverlayOpen()) {
-          return;
-        }
         handleClick(obj);
         return;
       }
@@ -371,23 +373,28 @@ function handleClick(obj) {
 }
 
 function onMouseMove(event) {
+  // Don't show hover effects if clicks are disabled or overlay is open
+  if (clicksDisabled || isAnyOverlayOpen()) {
+    removeOutlines();
+    document.body.style.cursor = 'default';
+    return;
+  }
+
   mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
   mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
   raycaster.setFromCamera(mouse, camera);
-  
+
   removeOutlines();
-  
+
   let hovering = false;
-  
+
   for (const [name, meshes] of meshGroups) {
     if (meshes.length === 0) continue;
-    
+
     const intersects = raycaster.intersectObjects(meshes, true);
     if (intersects.length > 0) {
       const obj = CLICKABLE_OBJECTS.find(o => o.name === name);
-      // Only show hover effect if no overlay is open (for overlay objects)
-      // or if it's a link object (always show hover for links)
-      if (obj && (obj.action === 'link' || !isAnyOverlayOpen())) {
+      if (obj) {
         hovering = true;
         createOutline(meshes);
         document.body.style.cursor = 'pointer';
@@ -430,7 +437,14 @@ function setupEventListeners() {
   // UI events
   document.getElementById('close-intro')?.addEventListener('click', () => hideOverlay('intro-overlay'));
   document.getElementById('enter-portfolio')?.addEventListener('click', () => {
-    if (modelLoaded) hideOverlay('intro-overlay');
+    if (modelLoaded) {
+      hideOverlay('intro-overlay');
+      // Disable clicks for 2 seconds to prevent accidental clicks on objects underneath
+      clicksDisabled = true;
+      setTimeout(() => {
+        clicksDisabled = false;
+      }, 2000);
+    }
   });
   document.getElementById('close-resume')?.addEventListener('click', () => hideOverlay('resume-overlay'));
   document.getElementById('close-projects')?.addEventListener('click', () => hideOverlay('projects-overlay'));
