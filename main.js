@@ -1,9 +1,10 @@
 console.log('🚀 Portfolio script starting...');
 
-// Set resume PDF src dynamically using Vite's base URL
+// Set resume PDF src dynamically - detect base URL from current location
+const baseUrl = window.location.pathname.includes('/portfolio') ? '/portfolio/' : '/';
 const resumePdfIframe = document.getElementById('resume-pdf');
 if (resumePdfIframe) {
-  resumePdfIframe.src = `${import.meta.env.BASE_URL}p/aresume.pdf#view=FitH&toolbar=0&navpanes=0&scrollbar=0`;
+  resumePdfIframe.src = `${baseUrl}p/aresume.pdf#view=FitH&toolbar=0&navpanes=0&scrollbar=0`;
 }
 
 // Import Three.js using the import map
