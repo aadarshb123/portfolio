@@ -444,7 +444,7 @@ function setupEventListeners() {
       clicksDisabled = true;
       setTimeout(() => {
         clicksDisabled = false;
-      }, 2000);
+      }, 1000);
     }
   });
   document.getElementById('close-resume')?.addEventListener('click', () => hideOverlay('resume-overlay'));
