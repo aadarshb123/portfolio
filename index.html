@@ -4,8 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Aadarsh Battula - 3D Portfolio</title>
+  <link rel="stylesheet" href="styles.css">
   <!-- Import Map (JSON only) -->
-
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+      "three/examples/jsm/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
   
   <!-- Error Handling (separate script) -->
   <script>
@@ -17,16 +25,6 @@
       console.error('Unhandled promise rejection:', e.reason);
     });
   </script>
-  <script type="importmap">
-  {
-    "imports": {
-      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
-      "three/examples/jsm/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
-    }
-  }
-  </script>
-  <script type="module" crossorigin src="/portfolio/assets/index-CEAoogQM.js"></script>
-  <link rel="stylesheet" crossorigin href="/portfolio/assets/index-B4EAXGbT.css">
 </head>
 <body>
   <!-- Intro Overlay -->
@@ -92,6 +90,22 @@
       <h1 class="projects-header">Experience</h1>
       
       <div class="timeline-container">
+        <div class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <div class="experience-image">
+              <img src="/portfolio/p/google.jpeg" alt="Google" />
+            </div>
+            <div class="experience-details">
+              <h3>Incoming Software Engineer Intern</h3>
+              <h4>Google • Mountain View, CA</h4>
+              <p class="date">May 2026 - August 2026</p>
+              <ul>
+                <li>Building a debugging agent that resolves flaky tests for Chrome Browser Infrastructure within Platforms and Devices org.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
         <!-- Experience 1: Cisco Meraki -->
         <div class="timeline-item">
           <div class="timeline-marker"></div>
@@ -287,5 +301,6 @@
     </div>
   </div>
 
+  <script type="module" src="./main.js"></script>
 </body>
 </html>
