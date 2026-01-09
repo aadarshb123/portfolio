@@ -145,6 +145,10 @@ body {
   border-top: 1px solid #e0e0e0;
 }
 
+.contact-section h2 {
+  color: #1a2a3a !important;
+}
+
 .contact-links {
   display: flex;
   gap: 1rem;
@@ -176,6 +180,10 @@ body {
 
 .contact-link svg {
   transition: transform 0.3s ease;
+}
+
+.contact-link:hover svg {
+  transform: scale(1.1);
 }
 
 /* Buttons */
@@ -292,11 +300,13 @@ body {
 .timeline-item:not(:last-child)::after {
   content: '';
   position: absolute;
-  left: 40px;
-  top: 22px;
+  /* Marker: 30px left + 30px total width (22px + 8px border) = center at 45px */
+  left: 44px;
+  top: 15px;
   bottom: -3rem;
   width: 2px;
   background: #d0d0d0;
+  z-index: 0;
 }
 
 .timeline-marker {
