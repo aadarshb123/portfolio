@@ -461,6 +461,18 @@ function setupEventListeners() {
   console.log('✅ Event listeners setup');
 }
 
+/** Spotify embed uses loading="eager" so the iframe starts loading with the page (lazy waited until the overlay was visible). Skeleton hides on iframe load. */
+function setupSpotifyEmbed() {
+  const iframe = document.getElementById('spotify-embed-iframe');
+  const skeleton = document.querySelector('#headphone-overlay .spotify-embed-skeleton');
+  if (!iframe || !skeleton) return;
+
+  const hideSkeleton = () => skeleton.classList.add('is-hidden');
+
+  iframe.addEventListener('load', hideSkeleton, { once: true });
+  setTimeout(hideSkeleton, 20000);
+}
+
 // Render loop
 function animate() {
   requestAnimationFrame(animate);
@@ -475,6 +487,7 @@ function init() {
   loadEnvironment();
   loadModel();
   setupEventListeners();
+  setupSpotifyEmbed();
   animate();
   
   console.log('✅ Portfolio initialization complete');
